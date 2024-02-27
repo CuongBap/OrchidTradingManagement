@@ -1,0 +1,78 @@
+﻿@page
+@model OrchidTradingManagement.Pages.Orchid.AddAuctionInformationModel
+@{
+}
+
+<div>
+    <div>
+        <h1>
+            Add Sell Information
+        </h1>
+    </div>
+</div>
+
+<div>
+    <div>
+        <form method="post">
+            <div class="mb-3">
+                <label for="heading" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" asp-for="AddListInformationRequest.Title">
+                <span class="text-danger" asp-validation-for="AddListInformationRequest.Title"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">Description:</label>
+                <input type="text" class="form-control" id="description" asp-for="AddListInformationRequest.Description">
+                <span class="text-danger" asp-validation-for="AddListInformationRequest.Description"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">Image:</label>
+                <input type="text" class="form-control" id="image" asp-for="AddListInformationRequest.Image">
+                <span class="text-danger" asp-validation-for="AddListInformationRequest.Image"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">CreateDate:</label>
+                <input type="text" class="form-control" id="heading" asp-for="AddListInformationRequest.CreatedDate">
+                <span class="text-danger" asp-validation-for="AddListInformationRequest.CreatedDate"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">Status</label>
+                <input type="text" class="form-control" id="status" asp-for="AddListInformationRequest.Status">
+                <span class="text-danger" asp-validation-for="AddListInformationRequest.Status"></span>
+            </div>
+            <!------------------------------------------------------------->
+            <div class="form-group">
+                <label asp-for="AddAuctionRequest.AuctionName" class="form-label">Auction Name:</label>
+                <textarea asp-for="AddAuctionRequest.AuctionName" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddAuctionRequest.Deposit" class="form-label">Deposit:</label>
+                <textarea asp-for="AddAuctionRequest.Deposit" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddAuctionRequest.StartingBid" class="form-label">StartingBid:</label>
+                <textarea asp-for="AddAuctionRequest.StartingBid" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddAuctionRequest.OpenDate" class="form-label">OpendDate:</label>
+                <textarea asp-for="AddAuctionRequest.OpenDate" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddAuctionRequest.CloseDate" class="form-label">CloseDate:</label>
+                <textarea asp-for="AddAuctionRequest.CloseDate" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddAuctionRequest.Status" class="form-label">Status:</label>
+                <textarea asp-for="AddAuctionRequest.Status" class="form-control"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+</div>

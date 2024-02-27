@@ -1,0 +1,74 @@
+﻿@page "{id:Guid}"
+@model OrchidTradingManagement.Pages.Orchid.EditSellInformationModel
+@{
+}
+
+<div>
+    <div>
+        <h1>
+            Edit Sell Information
+        </h1>
+    </div>
+</div>
+
+<div>
+    <div>
+        <form method="post">
+            <div class="mb-3">
+                <label for="heading" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" asp-for="EditListInformationRequest.Title">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Title"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">Description:</label>
+                <input type="text" class="form-control" id="description" asp-for="EditListInformationRequest.Description">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Description"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">Image:</label>
+                <input type="text" class="form-control" id="image" asp-for="EditListInformationRequest.Image">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Image"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">CreateDate:</label>
+                <input type="text" class="form-control" id="heading" asp-for="EditListInformationRequest.CreatedDate">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.CreatedDate"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="heading" class="form-label">Status</label>
+                <input type="text" class="form-control" id="status" asp-for="EditListInformationRequest.Status">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Status"></span>
+            </div>
+            <!------------------------------------------------------------->
+            <div class="form-group">
+                <label asp-for="EditOrchidRequest.OrchidName" class="form-label">Orchid Name:</label>
+                <textarea asp-for="EditOrchidRequest.OrchidName" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditOrchidRequest.Characteristic" class="form-label">Characteric:</label>
+                <textarea asp-for="EditOrchidRequest.Characteristic" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditOrchidRequest.UnitPrice" class="form-label">UnitPrice:</label>
+                <textarea asp-for="EditOrchidRequest.UnitPrice" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditOrchidRequest.Quantity" class="form-label">Quantity:</label>
+                <textarea asp-for="EditOrchidRequest.Quantity" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditOrchidRequest.Status" class="form-label">Status:</label>
+                <textarea asp-for="EditOrchidRequest.Status" class="form-control"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+</div>
