@@ -21,7 +21,7 @@ namespace OrchidTradingRepositories.Repositories
             return listInformation;
         }
 
-        public async Task<bool> AddAsync(AddOrchid orchid, AddListInformation listInformation, AddAuction auction)
+        public async Task<bool> AddAsync(string id, AddOrchid orchid, AddListInformation listInformation, AddAuction auction)
         {
             if (orchid != null)
             {
@@ -49,6 +49,7 @@ namespace OrchidTradingRepositories.Repositories
                         CreatedDate = listInformation.CreatedDate,
                         Status = listInformation.Status,
                         OrchidId = orchidId,
+                        UserId = Guid.Parse(id)
 
                     });
                     var check1 = await orchidTradingManagementContext.SaveChangesAsync();
@@ -80,9 +81,10 @@ namespace OrchidTradingRepositories.Repositories
                         Title = listInformation.Title,
                         Description = listInformation.Description,
                         Image = listInformation.Image,
-                        CreatedDate = listInformation.CreatedDate,
+                        CreatedDate = DateTime.Now,
                         Status = listInformation.Status,
                         AuctionId = auctionId,
+                        UserId = Guid.Parse(id)
                     });
                     var check2 = await orchidTradingManagementContext.SaveChangesAsync();
                     if(check2 > 0)

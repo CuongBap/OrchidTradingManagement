@@ -39,7 +39,16 @@ namespace OrchidTradingManagement.Pages.Orchid
 
             //return Page();
 
-            await listInformationRepository.AddAsync(AddOrchidRequest, AddListInformationRequest, null);
+            var userId = HttpContext.Session.GetString("userId");
+            if(userId == null)
+            {
+                return BadRequest("You haven't logined");
+            }
+            if(ModelState.IsValid)
+            {
+                var result = await listInformationRepository.AddAsync(userId ,AddOrchidRequest, AddListInformationRequest, null);
+            }
+            
             return Page();
 
         }

@@ -16,7 +16,7 @@ namespace OrchidTradingRepositories.Repositories
         Task<bool> UpdateAsync(ListInformation listInformation);
         Task<bool> DeleteAsync(Guid id);
 
-        Task<bool> AddAsync(AddOrchid orchid, AddListInformation listInformation, AddAuction addAuctionRequest);
+        Task<bool> AddAsync(string id , AddOrchid orchid, AddListInformation listInformation, AddAuction addAuctionRequest);
 
     }
 }

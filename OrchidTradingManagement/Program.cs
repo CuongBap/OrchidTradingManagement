@@ -1,3 +1,4 @@
+using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IListInformationRepository, ListInformationRepository>();
 builder.Services.AddScoped<IOrchidRepository, OrchidRepository>();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
+
+// Use session
+builder.Services.AddSession();
+builder.Services.AddMvc();
+builder.Services.AddHttpContextAccessor();
+builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("StripeSettings"));
+
+
 
 var app = builder.Build();
 
@@ -20,6 +32,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//Session
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

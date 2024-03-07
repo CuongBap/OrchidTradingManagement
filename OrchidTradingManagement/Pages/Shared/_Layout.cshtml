@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,10 +26,70 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false" id="navbardropdownpost">
+                                List Information
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbardropdownpost">
+
+                                <li>
+                                    <a class="dropdown-item" href="/Orchid/AddSellInformation">Add Sell Information</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/Orchid/AddAuctionInformation">Add Auction Information</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/Orchid/SellListInformation">View Sell ListInformation</a>
+                                </li>
+                            </ul>
+
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false" id="navbardropdownpost">
+                                My Orchid Information
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbardropdownpost">
+                                <li>
+                                    <a class="dropdown-item" href="">My Aution Orchid</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="">My Sell Orchid</a>
+                                </li>
+                            </ul>
+                            <!--end-->
+                        </li>
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "Admin")
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false" id="navbardropdownpost">
+                                    Admin
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbardropdownpost">
+                                    <li>
+                                        <a class="dropdown-item" href="/admin/accesspostlist">AccessList</a>
+                                    </li>
+                                </ul>
+                                <!--end-->
+                            </li>
+                        }
                     </ul>
+                    
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("userId") == null)
+                    {
+                        <div>
+                            <a href="/login" class="btn bg-light text-dark me-3">Login</a>
+                            <a href="/register" class="btn bg-light text-dark me-3">Register</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <a asp-page="/Login" asp-page-handler="Logout" class="btn btn-dark">LogOut</a>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
