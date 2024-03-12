@@ -9,6 +9,10 @@ namespace OrchidTradingManagement.Pages.Orchid
     {
         private readonly IListInformationRepository _listInformationRepository;
         public IEnumerable<SellOrchidDTO> Orchids { get; set; }
+        public MySellOrchidModel(IListInformationRepository listInformationRepository)
+        {
+            _listInformationRepository = listInformationRepository;
+        }
         public async Task OnGet()
         {
             var id = HttpContext.Session.GetString("userId");
