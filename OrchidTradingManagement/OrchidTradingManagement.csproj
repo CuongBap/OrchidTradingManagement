@@ -7,7 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Orchid\MySellOrchidInformation.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OrchidTradingRepositories\OrchidTradingRepositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Orchid\MySellOrchidInformation.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Orchid\MySellOrchidInformation.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Orchid\MySellOrchidInformation.cshtml" />
   </ItemGroup>
 
 </Project>

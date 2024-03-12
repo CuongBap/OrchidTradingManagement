@@ -47,6 +47,10 @@ namespace OrchidTradingManagement.Pages.Orchid
             if(ModelState.IsValid)
             {
                 var result = await listInformationRepository.AddAsync(userId ,AddOrchidRequest, AddListInformationRequest, null);
+                if(result != null)
+                {
+                    return RedirectToPage("index");
+                }
             }
             
             return Page();

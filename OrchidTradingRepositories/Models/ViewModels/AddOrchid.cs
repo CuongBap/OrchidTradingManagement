@@ -17,7 +17,6 @@ namespace OrchidTradingRepositories.Models.ViewModels
         public decimal UnitPrice { get; set; }
         [Required]
         public int Quantity { get; set; }
-        [Required]
-        public string Status { get; set; } = null!;
+        
     }
 }
