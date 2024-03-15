@@ -1,22 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OrchidTradingRepositories.Models.Enums;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Models;
 using OrchidTradingRepositories.Repositories;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
-    public class EditSellInformationModel : PageModel
+    public class MyEditSellOrchidModel : PageModel
     {
         private readonly IOrchidRepository orchidRepository;
         private readonly IListInformationRepository listInformationRepository;
+
         [BindProperty]
         public EditListInformation EditListInformationRequest { get; set; }
 
         [BindProperty]
         public EditOrchid EditOrchidRequest { get; set; }
 
-        public EditSellInformationModel(IListInformationRepository listInformationRepository, IOrchidRepository orchidRepository)
+        public MyEditSellOrchidModel(IListInformationRepository listInformationRepository, IOrchidRepository orchidRepository)
         {
             this.orchidRepository = orchidRepository;
             this.listInformationRepository = listInformationRepository;
@@ -50,7 +52,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                             Characteristic = orchidDomainModel.Characteristic,
                             UnitPrice = orchidDomainModel.UnitPrice,
                             Quantity = orchidDomainModel.Quantity,
-                            
+
                         };
                     }
                 }
@@ -62,41 +64,46 @@ namespace OrchidTradingManagement.Pages.Orchid
 
         public async Task<IActionResult> OnPostEdit()
         {
-            try
+            if (ModelState.IsValid)
             {
-                var listinforDomainModel = new ListInformation
-                {
-                    InforId = EditListInformationRequest.InforId,
-                    Title = EditListInformationRequest.Title,
-                    Description = EditListInformationRequest.Description,
-                    Image = EditListInformationRequest.Image,
-                    CreatedDate = EditListInformationRequest.CreatedDate,
-                    Status = EditListInformationRequest.Status,
-                    OrchidId = EditListInformationRequest.OrchidId,
-                    AuctionId = EditListInformationRequest.AuctionId,
-                    UserId = EditListInformationRequest.UserId,
+               
+                    var listinforDomainModel = new ListInformation
+                    {
+                        InforId = EditListInformationRequest.InforId,
+                        Title = EditListInformationRequest.Title,
+                        Description = EditListInformationRequest.Description,
+                        Image = EditListInformationRequest.Image,
+                        CreatedDate = EditListInformationRequest.CreatedDate,
+                        Status = EditListInformationRequest.Status,
+                        OrchidId = EditListInformationRequest.OrchidId,
+                        AuctionId = EditListInformationRequest.AuctionId,
+                        UserId = EditListInformationRequest.UserId,
 
-                };
+                    };
+                    var orchidDomainModel = new OrchidProduct
+                    {
+                        OrchidId = EditOrchidRequest.OrchidId,
+                        OrchidName = EditOrchidRequest.OrchidName,
+                        Characteristic = EditOrchidRequest.Characteristic,
+                        UnitPrice = EditOrchidRequest.UnitPrice,
+                        Quantity = EditOrchidRequest.Quantity,
+                    };
 
-                var orchidDomainModel = new OrchidProduct
-                {
-                    OrchidId = EditOrchidRequest.OrchidId,
-                    OrchidName = EditOrchidRequest.OrchidName,
-                    Characteristic = EditOrchidRequest.Characteristic,
-                    UnitPrice = EditOrchidRequest.UnitPrice,
-                    Quantity = EditOrchidRequest.Quantity,
-                };
+                    await listInformationRepository.UpdateAsync(listinforDomainModel);
+                    await orchidRepository.UpdateAsync(orchidDomainModel);
+                
+               return RedirectToAction("Index");
 
-                await listInformationRepository.UpdateAsync(listinforDomainModel);
-                await orchidRepository.UpdateAsync(orchidDomainModel);
+
+                
+            }
+            else
+            {
+
+                return RedirectToAction("/Orchid/AddSellInformation");
 
             }
-            catch (Exception ex)
-            {
 
-            }
-            return Page();
         }
-
     }
 }

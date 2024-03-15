@@ -32,18 +32,6 @@
                 <span class="text-danger" asp-validation-for="AddListInformationRequest.Image"></span>
             </div>
 
-            <div class="mb-3">
-                <label for="heading" class="form-label">CreateDate:</label>
-                <input type="text" class="form-control" id="heading" asp-for="AddListInformationRequest.CreatedDate">
-                <span class="text-danger" asp-validation-for="AddListInformationRequest.CreatedDate"></span>
-            </div>
-
-            <div class="mb-3">
-                <label for="heading" class="form-label">Status</label>
-                <input type="text" class="form-control" id="status" asp-for="AddListInformationRequest.Status">
-                <span class="text-danger" asp-validation-for="AddListInformationRequest.Status"></span>
-            </div>
-            <!------------------------------------------------------------->
             <div class="form-group">
                 <label asp-for="AddAuctionRequest.AuctionName" class="form-label">Auction Name:</label>
                 <textarea asp-for="AddAuctionRequest.AuctionName" class="form-control"></textarea>
@@ -63,10 +51,6 @@
             <div class="form-group">
                 <label asp-for="AddAuctionRequest.CloseDate" class="form-label">CloseDate:</label>
                 <textarea asp-for="AddAuctionRequest.CloseDate" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label asp-for="AddAuctionRequest.Status" class="form-label">Status:</label>
-                <textarea asp-for="AddAuctionRequest.Status" class="form-control"></textarea>
             </div>
 
             <div class="mb-3">

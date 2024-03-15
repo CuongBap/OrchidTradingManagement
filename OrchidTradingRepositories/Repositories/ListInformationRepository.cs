@@ -37,12 +37,12 @@ namespace OrchidTradingRepositories.Repositories
                         Title = listInformation.Title,
                         Description = listInformation.Description,
                         Image = listInformation.Image,
-                        CreatedDate = listInformation.CreatedDate,
-                        Status = listInformation.Status,
+                        CreatedDate = DateTime.Now,
+                        Status = ListInformationStatus.Processing.ToString(),
                         OrchidId = orchidId,
                         UserId = Guid.Parse(id)
 
-                    });
+                    }) ;
                     var check1 = await orchidTradingManagementContext.SaveChangesAsync();
                     if (check1 > 0)
                         return true;
@@ -59,7 +59,7 @@ namespace OrchidTradingRepositories.Repositories
                     StartingBid = auction.StartingBid,
                     OpenDate = auction.OpenDate,
                     CloseDate = auction.CloseDate,
-                    Status = auction.Status,
+                    
                 };
                 await orchidTradingManagementContext.Auctions.AddAsync(auctionModel);
                 var rs2 = await orchidTradingManagementContext.SaveChangesAsync();
@@ -73,7 +73,7 @@ namespace OrchidTradingRepositories.Repositories
                         Description = listInformation.Description,
                         Image = listInformation.Image,
                         CreatedDate = DateTime.Now,
-                        Status = listInformation.Status,
+                        Status = ListInformationStatus.Processing.ToString(),
                         AuctionId = auctionId,
                         UserId = Guid.Parse(id)
                     });

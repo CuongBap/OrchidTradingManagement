@@ -17,9 +17,9 @@ namespace OrchidTradingRepositories.Models.ViewModels
         public string Description { get; set; } = null!;
         [Required]
         public string Image { get; set; } = null!;
-        [Required]
+        
         public DateTime CreatedDate { get; set; }
-        [Required]
+        
         public string Status { get; set; } = null!;
 
         public Guid? OrchidId { get; set; }

@@ -49,7 +49,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                 var result = await listInformationRepository.AddAsync( userId , null, AddListInformationRequest, AddAuctionRequest);
                 if (result)
                 {
-                    return RedirectToPage("Orchid/SellListInformation");
+                    return RedirectToPage("/Orchid/SellListInformation");
                 }
             }
 

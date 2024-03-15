@@ -19,7 +19,6 @@ namespace OrchidTradingRepositories.Models.ViewModels
         public DateTime OpenDate { get; set; }
         [Required]
         public DateTime CloseDate { get; set; }
-        [Required]
-        public string Status { get; set; } = null!;
+        
     }
 }
