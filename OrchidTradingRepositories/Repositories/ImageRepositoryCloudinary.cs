@@ -1,5 +1,6 @@
 ﻿using CloudinaryDotNet;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,14 @@ namespace OrchidTradingRepositories.Repositories
 {
     public class ImageRepositoryCloudinary : IImageRepository
     {
+        //private readonly Account account;
+        //public ImageRepositoryCloudinary(IConfiguration configuration)
+        //{
+        //    account = new Account(configuration.GetSection("Cloudinary")["CloudName"],
+        //        configuration.GetSection("Cloudinary")["ApiKey"],
+        //        configuration.GetSection("Cloudinary")["ApiSecret"]);
+        //}
+
         private readonly Account account;
         public ImageRepositoryCloudinary(IConfiguration configuration)
         {
@@ -18,7 +27,7 @@ namespace OrchidTradingRepositories.Repositories
                 configuration.GetSection("Cloudinary")["ApiKey"],
                 configuration.GetSection("Cloudinary")["ApiSecret"]);
         }
-       
+
         public async Task<string> UploadAsync(IFormFile file)
         {
             var client = new Cloudinary(account);

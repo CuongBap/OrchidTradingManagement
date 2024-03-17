@@ -27,6 +27,12 @@
             </div>
 
             <div class="mb-3">
+                <label for="featuredImageUpload" class="form-label">Featured Image Upload</label>
+                <input type="file" id="featuredImageUpload" asp-for="FeaturedImage" />
+                <img src="" id="featuredImageDisplay" style="display:none; width:300px;" />
+            </div>
+
+            <div class="mb-3">
                 <label for="heading" class="form-label">Image:</label>
                 <input type="text" class="form-control" id="image" asp-for="AddListInformationRequest.Image">
                 <span class="text-danger" asp-validation-for="AddListInformationRequest.Image"></span>
@@ -60,3 +66,35 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+
+        const featuredImageUploadElement = document.getElementById('featuredImageUpload');
+        const image = document.getElementById('image');
+        const featuredImageDisplay = document.getElementById('featuredImageDisplay');
+
+        async function uploadFeaturedImage(e) {
+            console.log(e.target.files[0]);
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/images', {
+                method: 'Post',
+                headers: {
+                    'Accept': '*/*'
+                },
+                body: data
+            }).then(response => response.json())
+                .then(result => {
+                    image.value = result.link;
+                    featuredImageDisplay.style.display = 'block';
+                    featuredImageDisplay.src = result.link;
+                });
+        }
+
+
+        featuredImageUploadElement.addEventListener('change', uploadFeaturedImage);
+    </script>
+}

@@ -18,6 +18,9 @@ namespace OrchidTradingManagement.Pages.Orchid
         [BindProperty]
         public EditOrchid EditOrchidRequest { get; set; }
 
+        [BindProperty]
+        public IFormFile? FeaturedImage { get; set; }
+
         public MyEditSellOrchidModel(IListInformationRepository listInformationRepository, IOrchidRepository orchidRepository)
         {
             this.orchidRepository = orchidRepository;
@@ -91,16 +94,17 @@ namespace OrchidTradingManagement.Pages.Orchid
 
                     await listInformationRepository.UpdateAsync(listinforDomainModel);
                     await orchidRepository.UpdateAsync(orchidDomainModel);
-                
-               return RedirectToAction("Index");
+
+                TempData["success"] = "Edit successfuly";
+                return Page();
 
 
                 
             }
             else
             {
-
-                return RedirectToAction("/Orchid/AddSellInformation");
+                TempData["error"] = "Edited fail";
+                return Page();
 
             }
 
