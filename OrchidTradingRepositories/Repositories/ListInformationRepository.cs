@@ -107,7 +107,8 @@ namespace OrchidTradingRepositories.Repositories
 
         public async Task<IEnumerable<SellOrchidDTO>> GetAllMySellListInformationAsync(string id)
         {
-            var result = await orchidTradingManagementContext.ListInformations.Include(x => x.Orchid).Where(x => x.UserId != null && x.UserId == Guid.Parse(id) && !x.Status.Equals(ListInformationStatus.Unavailable.ToString()) && x.OrchidId != null).Select(x => new SellOrchidDTO
+            var result = await orchidTradingManagementContext.ListInformations.Include(x => x.Orchid).Where(x => x.UserId != null && x.UserId == Guid.Parse(id) && !x.Status.Equals(ListInformationStatus.Unavailable.ToString()) && x.OrchidId != null)
+               .Select(x => new SellOrchidDTO
             {
                InforId = x.InforId,
                Title = x.Title,
@@ -226,6 +227,29 @@ namespace OrchidTradingRepositories.Repositories
             .OrderByDescending(x => x.CreatedDate)
             .ToList();
 
+            return result;
+        }
+
+        public async Task<IEnumerable<AuctionOrchidDTO>> GetAllMyAuctionListInformationAsync(string id)
+        {
+            var result = await orchidTradingManagementContext.ListInformations.Include(x => x.Auction).Where(x => x.UserId != null && x.UserId == Guid.Parse(id) && !x.Status.Equals(ListInformationStatus.Unavailable.ToString()) && x.AuctionId != null)
+               .Select(x => new AuctionOrchidDTO
+            {
+               InforId = x.InforId,
+               Title = x.Title,
+               Description = x.Description,
+               Image = x.Image,
+               CreatedDate = x.CreatedDate,
+               Status = x.Status,
+               UserId = x.UserId,
+               AuctionId = x.AuctionId,
+               AuctionName = x.Auction.AuctionName,
+               Deposit = x.Auction.Deposit,
+               StartingBid = x.Auction.StartingBid,
+               OpenDate = x.Auction.OpenDate,
+               CloseDate = x.Auction.CloseDate,
+
+               }).OrderByDescending(x => x.CreatedDate).ToListAsync();
             return result;
         }
     }
