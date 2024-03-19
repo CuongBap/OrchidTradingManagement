@@ -34,8 +34,8 @@
 
             <div class="mb-3">
                 <label for="heading" class="form-label">Image:</label>
-                <input type="text" class="form-control" id="image" asp-for="AddListInformationRequest.Image">
-                <span class="text-danger" asp-validation-for="AddListInformationRequest.Image"></span>
+                <input type="text" class="form-control" id="image" asp-for="AddListInformationRequest.Image" readonly>
+                <span class="text-danger" asp-validation-for="AddListInformationRequest.Image" ></span>
             </div>
 
             <div class="form-group">
@@ -52,11 +52,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="AddAuctionRequest.OpenDate" class="form-label">OpendDate:</label>
-                <textarea asp-for="AddAuctionRequest.OpenDate" class="form-control"></textarea>
+                <input type="date" class="form-control" id="openDate" asp-for="AddAuctionRequest.OpenDate">
+                
             </div>
             <div class="form-group">
                 <label asp-for="AddAuctionRequest.CloseDate" class="form-label">CloseDate:</label>
-                <textarea asp-for="AddAuctionRequest.CloseDate" class="form-control"></textarea>
+                <input type="date" class="form-control" id="closeDate" asp-for="AddAuctionRequest.CloseDate">
             </div>
 
             <div class="mb-3">

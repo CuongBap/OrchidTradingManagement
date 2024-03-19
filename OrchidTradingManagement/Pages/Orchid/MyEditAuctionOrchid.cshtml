@@ -1,0 +1,137 @@
+﻿@page "{id:Guid}"
+@model OrchidTradingManagement.Pages.Orchid.MyEditAuctionOrchidModel
+@{
+}
+
+<div>
+    <div>
+        <h1>
+            Edit Sell Information
+        </h1>
+    </div>
+</div>
+
+<div>
+    <div class="container">
+        <form method="post">
+            <div class="mb-3" style="display:none">
+                <label for="inforId" class="form-label">InforId:</label>
+                <input type="text" class="form-control" id="inforId" asp-for="EditListInformationRequest.InforId">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Title"></span>
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" asp-for="EditListInformationRequest.Title">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Title"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <input type="text" class="form-control" id="description" asp-for="EditListInformationRequest.Description">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Description"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="featuredImageUpload" class="form-label">Featured Image Upload</label>
+                <input type="file" id="featuredImageUpload" asp-for="FeaturedImage" />
+                @if (Model.EditListInformationRequest.Image != null)
+                {
+                    <img src="@Model.EditListInformationRequest.Image" id="featuredImageDisplay" style=" width:300px;" />
+                }
+                else
+                {
+                    <img src="" id="featuredImageDisplay" style="display:none; width:300px;" />
+                }
+
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image:</label>
+                <input type="text" class="form-control" id="image" asp-for="EditListInformationRequest.Image" readonly>
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Image"></span>
+            </div>
+
+            <div class="mb-3" style="display:none">
+                <label for="createDate" class="form-label">CreateDate:</label>
+                <input type="text" class="form-control" id="createDate" asp-for="EditListInformationRequest.CreatedDate">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.CreatedDate"></span>
+            </div>
+
+            <div class="mb-3" style="display:none">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" class="form-control" id="status" asp-for="EditListInformationRequest.Status">
+                <span class="text-danger" asp-validation-for="EditListInformationRequest.Status"></span>
+            </div>
+            <div class="mb-3" style="display:none">
+                <label for="userId" class="form-label">UserId:</label>
+                <input type="text" class="form-control" id="userId" asp-for="EditListInformationRequest.UserId" readonly>
+            </div>
+            <div class="mb-3" style="display:none">
+                <label for="orchidId" class="form-label">OrchidId:</label>
+                <input type="text" class="form-control" id="orchidId" asp-for="EditListInformationRequest.OrchidId" readonly>
+            </div>
+            <div class="mb-3" style="display:none">
+                <label for="auctionId" class="form-label">AuctionId:</label>
+                <input type="text" class="form-control" id="auctionId" asp-for="EditAuctionRequest.AuctionId" readonly>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditAuctionRequest.AuctionName" class="form-label">Auction Name:</label>
+                <textarea asp-for="EditAuctionRequest.AuctionName" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditAuctionRequest.Deposit" class="form-label">Deposit:</label>
+                <textarea asp-for="EditAuctionRequest.Deposit" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditAuctionRequest.StartingBid" class="form-label">StartingBid:</label>
+                <textarea asp-for="EditAuctionRequest.StartingBid" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditAuctionRequest.OpenDate" class="form-label">Open Date:</label>
+                <input type="date" class="form-control" id="opendDate" asp-for="EditAuctionRequest.OpenDate">
+            </div>
+            <div class="form-group">
+                <label asp-for="EditAuctionRequest.CloseDate" class="form-label">Close Date:</label>
+                <input type="date" class="form-control" id="closeDate" asp-for="EditAuctionRequest.CloseDate">
+            </div>
+
+            <div class="mb-3 d-flex justify-content-between">
+                <button class="btn btn-primary" type="submit" asp-page="MyEditAuctionOrchid" asp-page-handler="Edit">Submit</button>
+
+                <button class="btn btn-danger" type="submit" asp-page="MyEditAuctionOrchid" asp-page-handler="Delete">Delete</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        const featuredImageUploadElement = document.getElementById('featuredImageUpload');
+        const image = document.getElementById('image');
+        const featuredImageDisplay = document.getElementById('featuredImageDisplay');
+
+        async function uploadFeaturedImage(e) {
+            console.log(e.target.files[0]);
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/images', {
+                method: 'Post',
+                headers: {
+                    'Accept': '*/*'
+                },
+                body: data
+            }).then(response => response.json())
+                .then(result => {
+                    image.value = result.link;
+                    featuredImageDisplay.style.display = 'block';
+                    featuredImageDisplay.src = result.link;
+                });
+        }
+
+
+        featuredImageUploadElement.addEventListener('change', uploadFeaturedImage);
+    </script>
+}

@@ -77,7 +77,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                         Description = EditListInformationRequest.Description,
                         Image = EditListInformationRequest.Image,
                         CreatedDate = EditListInformationRequest.CreatedDate,
-                        Status = EditListInformationRequest.Status,
+                        Status = ListInformationStatus.Processing.ToString(),
                         OrchidId = EditListInformationRequest.OrchidId,
                         AuctionId = EditListInformationRequest.AuctionId,
                         UserId = EditListInformationRequest.UserId,
