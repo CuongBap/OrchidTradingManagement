@@ -68,7 +68,6 @@ public partial class OrchidTradingManagementContext : DbContext
             entity.Property(e => e.StartingBid)
                 .HasColumnType("money")
                 .HasColumnName("startingBid");
-            entity.Property(e => e.Status).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Bidding>(entity =>

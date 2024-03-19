@@ -91,7 +91,13 @@ namespace OrchidTradingRepositories.Repositories
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var existingOrchid = await orchidTradingManagementContext.ListInformations.FindAsync(id);
+            if(existingOrchid != null)
+            {
+                existingOrchid.Status = ListInformationStatus.Unavailable.ToString();
+            }
+            await orchidTradingManagementContext.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<ListInformation>> GetAllAsync()
@@ -171,5 +177,27 @@ namespace OrchidTradingRepositories.Repositories
             }
             return false;
         }
+
+
+        public async Task<bool> UpdateAdminAsync(ListInformation listInformation)
+        {
+            var existingListinfo = await orchidTradingManagementContext.ListInformations.FindAsync(listInformation.InforId);
+            
+            if (existingListinfo != null)
+            {
+                existingListinfo.Title = listInformation.Title;
+                existingListinfo.Description = listInformation.Description;
+                existingListinfo.Image = listInformation.Image;
+                existingListinfo.CreatedDate = listInformation.CreatedDate;
+                existingListinfo.Status = listInformation.Status;
+                var result = await orchidTradingManagementContext.SaveChangesAsync();
+                if (result > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

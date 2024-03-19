@@ -109,5 +109,17 @@ namespace OrchidTradingManagement.Pages.Orchid
             }
 
         }
+
+        public async Task<IActionResult> OnPostDelete()
+        {
+            var deleted = await listInformationRepository.DeleteAsync(EditListInformationRequest.InforId);
+            if(deleted) {
+                TempData["success"] = "Delete successfully";
+                return RedirectToPage("MySellOrchid");
+            }
+
+            TempData["Error"] = "Edit Fail";
+            return Page();
+        }
     }
 }

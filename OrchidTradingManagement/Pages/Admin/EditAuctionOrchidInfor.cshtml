@@ -1,0 +1,118 @@
+﻿@page "{id:Guid}"
+@model OrchidTradingManagement.Pages.Admin.EditAuctionOrchidInforModel
+@{
+}
+
+
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div>
+        <h1>Approve Auction Admin Page</h1>
+    </div>
+</div>
+
+@if (Model.ListInformation != null)
+{
+    <div>
+        <div class="container">
+            <form method="post">
+                <div class="mb-3" style="display:none">
+                    <label for="inforId" class="form-label">InforId:</label>
+                    <input type="text" class="form-control" id="inforId" asp-for="ListInformation.InforId" readonly>
+
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" class="form-control" id="title" asp-for="ListInformation.Title" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <input type="text" class="form-control" id="description" asp-for="ListInformation.Description" readonly>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="featuredImageUpload" class="form-label">Featured Image Upload</label>
+                    <input type="file" id="featuredImageUpload" asp-for="FeaturedImage" readonly />
+                    @if (Model.ListInformation.Image != null)
+                    {
+                        <img src="@Model.ListInformation.Image" id="featuredImageDisplay" style=" width:300px;" />
+                    }
+                    else
+                    {
+                        <img src="" id="featuredImageDisplay" style="display:none; width:300px;" />
+                    }
+
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image:</label>
+                    <input type="text" class="form-control" id="image" asp-for="ListInformation.Image" readonly>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="createDate" class="form-label">CreateDate:</label>
+                    <input type="text" class="form-control" id="createDate" asp-for="ListInformation.CreatedDate" readonly>
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ListInformation.Status" class="control-label">Status</label>
+                    <div>
+                        <select asp-for="ListInformation.Status">
+                            <option value="Processing">Processing</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Unavailable">Unavailable</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="ListInformation.Status" class="text-danger"></span>
+                </div>
+                <div class="mb-3" style="display:none">
+                    <label for="userId" class="form-label">UserId:</label>
+                    <input type="text" class="form-control" id="userId" asp-for="ListInformation.UserId" readonly>
+                </div>
+                <div class="mb-3" style="display:none">
+                    <label for="orchidId" class="form-label">OrchidId:</label>
+                    <input type="text" class="form-control" id="orchidId" asp-for="ListInformation.OrchidId" readonly>
+                </div>
+                <div class="mb-3" style="display:none">
+                    <label for="auctionId" class="form-label">AuctionId:</label>
+                    <input type="text" class="form-control" id="auctionId" asp-for="Auction.AuctionId" readonly>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Auction.AuctionName" class="form-label">Auction Name:</label>
+                    <textarea asp-for="Auction.AuctionName" class="form-control" readonly></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Auction.Deposit" class="form-label">Deposit:</label>
+                    <textarea asp-for="Auction.Deposit" class="form-control" readonly></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Auction.StartingBid" class="form-label">Starting Bid:</label>
+                    <textarea asp-for="Auction.StartingBid" class="form-control" readonly></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Auction.OpenDate" class="form-label">Open Date:</label>
+                    <textarea asp-for="Auction.OpenDate" class="form-control" readonly></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Auction.CloseDate" class="form-label">Close Date:</label>
+                    <textarea asp-for="Auction.CloseDate" class="form-control" readonly></textarea>
+                </div>
+
+                <div class="mb-3 d-flex justify-content-between">
+                    <button class="btn btn-primary" type="submit" asp-page="EditAuctionOrchidInfor" asp-page-handler="Edit">Submit</button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <p>Information Not Found!</p>
+    </div>
+}

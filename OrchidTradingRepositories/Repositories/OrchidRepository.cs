@@ -42,5 +42,25 @@ namespace OrchidTradingRepositories.Repositories
             }
             return false;
         }
+        
+        
+
+        public async Task<bool> UpdateAdminAsync(OrchidProduct orchid)
+        {
+            var existingOrchid = await orchidTradingManagementContext.OrchidProducts.FindAsync(orchid.OrchidId);
+            if (existingOrchid != null)
+            {
+                existingOrchid.OrchidName = orchid.OrchidName;
+                existingOrchid.Characteristic = orchid.Characteristic;
+                existingOrchid.UnitPrice = orchid.UnitPrice;
+                existingOrchid.Quantity = orchid.Quantity;
+            }
+            var result = await orchidTradingManagementContext.SaveChangesAsync();
+            if (result > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

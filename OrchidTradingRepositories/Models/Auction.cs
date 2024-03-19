@@ -17,7 +17,6 @@ public partial class Auction
 
     public DateTime CloseDate { get; set; }
 
-    public string Status { get; set; } = null!;
 
     public virtual ICollection<Bidding> Biddings { get; set; } = new List<Bidding>();
 

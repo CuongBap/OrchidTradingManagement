@@ -20,72 +20,100 @@
 
             if(Model.Orchids != null && Model.Orchids.Any())
             {
-                @foreach(var orchid in Model.Orchids)
-                {
-                    <div onclick="toggleContent('@orchid.InforId')">
-                      <div class="container" id="body">
-                         <form method="post">
-                            <div class="mb-3" style="display:none">
-                              <label for="id" class="form-label">Infor Id:</label>
-                                 @orchid.InforId
-                              </div>
-                             <div class="mb-3">
-                                    <label for="title" class="form-label">Title:</label>
-                                    @orchid.Title
-                              </div>
-                              <div class="mb-3">
-                                    <label for="createDate" class="form-label">Create Date:</label>
-                                    @orchid.CreatedDate
-                              </div>
-                              <div class="mb-3">
-                                    <label for="status" class="form-label">Status:</label>
-                                    @orchid.Status
-                              </div>
-                                <div class="mb-3">
-                                    <label for="image" class="form-label">Image:</label>
-                                    <img src="@orchid.Image" style="width:300px; height:300px" />                                  
-                                </div>
+                // @foreach(var orchid in Model.Orchids)
+                // {
+                //     <div onclick="toggleContent('@orchid.InforId')">
+                //       <div class="container" id="body">
+                //          <form method="post">
+                //             <div class="mb-3" style="display:none">
+                //               <label for="id" class="form-label">Infor Id:</label>
+                //                  @orchid.InforId
+                //               </div>
+                //              <div class="mb-3">
+                //                     <label for="title" class="form-label">Title:</label>
+                //                     @orchid.Title
+                //               </div>
+                //               <div class="mb-3">
+                //                     <label for="createDate" class="form-label">Create Date:</label>
+                //                     @orchid.CreatedDate
+                //               </div>
+                //               <div class="mb-3">
+                //                     <label for="status" class="form-label">Status:</label>
+                //                     @orchid.Status
+                //               </div>
+                //                 <div class="mb-3">
+                //                     <label for="image" class="form-label">Image:</label>
+                //                     <img src="@orchid.Image" style="width:300px; height:300px" />                                  
+                //                 </div>
 
 
-                                <div class="content" id="@orchid.InforId">
-                                    <div class="mb-3">
-                                        <label for="description" class="form-label">Description:</label>
-                                        @orchid.Description
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="orchidName" class="form-label">Orchid Name:</label>
-                                        @orchid.OrchidName
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">Characteristic:</label>
-                                        @orchid.Characteristic
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">UnitPrice:</label>
-                                        @orchid.UnitPrice
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="price" class="form-label">Quantity:</label>
-                                        @orchid.Quantity
-                                    </div>
-                                </div>
-                                <div class="mb-3" style="display:none">
-                                    <label for="userId" class="form-label">UserID</label>
-                                    <input type="hidden" class="form-control" id="userId" asp-for="@orchid.UserId" />
-                                </div>
-                                <div class="mb-3" style="display:none">
-                                    <label for="orchidId" class="form-label">AnimalID</label>
-                                    <input type="hidden" class="form-control" id="animalId" asp-for="@orchid.OrchidId" />
-                                </div>
-                                <div class="mb-3 d-flex justify-content-between">
-                                    <a class="button" style="text-decoration:none" href="MyEditSellOrchid/@orchid.InforId">Modify</a>
-                                </div>
+                //                 <div class="content" id="@orchid.InforId">
+                //                     <div class="mb-3">
+                //                         <label for="description" class="form-label">Description:</label>
+                //                         @orchid.Description
+                //                     </div>
+                //                     <div class="mb-3">
+                //                         <label for="orchidName" class="form-label">Orchid Name:</label>
+                //                         @orchid.OrchidName
+                //                     </div>
+                //                     <div class="mb-3">
+                //                         <label for="price" class="form-label">Characteristic:</label>
+                //                         @orchid.Characteristic
+                //                     </div>
+                //                     <div class="mb-3">
+                //                         <label for="price" class="form-label">UnitPrice:</label>
+                //                         @orchid.UnitPrice
+                //                     </div>
+                //                     <div class="mb-3">
+                //                         <label for="price" class="form-label">Quantity:</label>
+                //                         @orchid.Quantity
+                //                     </div>
+                //                 </div>
+                //                 <div class="mb-3" style="display:none">
+                //                     <label for="userId" class="form-label">UserID</label>
+                //                     <input type="hidden" class="form-control" id="userId" asp-for="@orchid.UserId" />
+                //                 </div>
+                //                 <div class="mb-3" style="display:none">
+                //                     <label for="orchidId" class="form-label">AnimalID</label>
+                //                     <input type="hidden" class="form-control" id="animalId" asp-for="@orchid.OrchidId" />
+                //                 </div>
+                //                 <div class="mb-3 d-flex justify-content-between">
+                //                     <a class="button" style="text-decoration:none" href="MyEditSellOrchid/@orchid.InforId">Modify</a>
+                //                 </div>
 
-                         </form>
-                            <hr style="height: 2px; margin: 10px 0; background-color: black;" />
-                      </div>
-                    </div>
-                }
+                //          </form>
+                //             <hr style="height: 2px; margin: 10px 0; background-color: black;" />
+                //       </div>
+                //     </div>
+                // }
+
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Images</td>
+                                <td>Title</td>
+                                <td>Status</td>
+                                <td> </td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var orchid in Model.Orchids)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@orchid.Image" style="width:100px; height:100px" />
+                                    </td>
+                                    <td>@orchid.Title</td>
+                                    <td>@orchid.Status</td>
+                                    <td><a href="/orchid/MyEditSellOrchid/@orchid.InforId">View</a></td>
+                                   
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
 
             }
             else

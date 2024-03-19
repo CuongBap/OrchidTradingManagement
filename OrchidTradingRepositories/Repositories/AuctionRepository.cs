@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
 using OrchidTradingRepositories.Models;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,26 @@ namespace OrchidTradingRepositories.Repositories
 
         public async Task<Auction> GetAsync(Guid id)
         {
-            var auction = await orchidTradingManagementContext.Auctions.FirstOrDefaultAsync(x => x.AuctionId == id);
-            return auction;
+            return await orchidTradingManagementContext.Auctions.FirstOrDefaultAsync(c => c.AuctionId == id);
         }
 
         public async Task<bool> UpdateAsync(Auction auction)
         {
-            throw new NotImplementedException();
+            var existingAuction = await orchidTradingManagementContext.Auctions.FindAsync(auction.AuctionId);
+            if (existingAuction != null)
+            {
+                existingAuction.AuctionName = auction.AuctionName;
+                existingAuction.Deposit = auction.Deposit;
+                existingAuction.StartingBid = auction.StartingBid;
+                existingAuction.OpenDate = auction.OpenDate;
+                existingAuction.CloseDate = auction.CloseDate;
+            }
+            var result = await orchidTradingManagementContext.SaveChangesAsync();
+            if(result > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

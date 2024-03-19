@@ -2,203 +2,66 @@
 @model OrchidTradingManagement.Pages.Admin.AccessListModel
 @{
 }
-<div>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>List of Products</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #f8f8f8;
-            }
 
-            .container {
-                max-width: 800px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
+@{
+    String jsonString = HttpContext.Session.GetString("userId");
+    if (!string.IsNullOrEmpty(jsonString))
+    {
+        if (jsonString.Equals("e7c115d3-a70a-4a16-b891-c45bd0425a00"))
+        {
+            <div class="bg-secondary bg-opacity-10 py-2">
+                <div class="container">
+                    <h1>List Orchid Information</h1>
+                </div>
+            </div>
 
-            .product-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-            }
+            <div class="container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Images</td>
+                            <td>Title</td>
+                            <td>Status</td>
+                            <td> </td>
 
-                .product-table th, .product-table td {
-                    border: 1px solid #ccc;
-                    padding: 12px;
-                    text-align: left;
-                }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var infor in Model.ListInformations)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@infor.Image" style="width:100px; height:100px" />
+                                </td>
+                                <td>@infor.Title</td>
+                                <td>@infor.Status</td>
 
-                .product-table th {
-                    background-color: #f2f2f2;
-                    font-weight: bold;
-                }
+                                @if (infor.OrchidId != null)
+                                {
+                                    <td>@infor.OrchidId</td>
+                                    <td><a href="/admin/EditSellOrchidInfor/@infor.InforId">View</a></td>
+                                }
+                                @if (infor.AuctionId != null)
+                                {
+                                    <td>@infor.AuctionId</td>
+                                    <td><a href="/admin/EditAuctionOrchidInfor/@infor.InforId">View</a></td>
+                                }
 
-                .product-table tbody tr:nth-child(even) {
-                    background-color: #f9f9f9;
-                }
 
-                .product-table tbody tr:hover {
-                    background-color: #f0f0f0;
-                }
-
-            .product-image {
-                max-width: 100px;
-                height: auto;
-                display: block;
-                margin-right: auto;
-                margin-left: auto;
-            }
-
-            .product-description {
-                max-width: 300px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .product-actions {
-               
-                align-items: center;
-            }
-
-                .product-actions button {
-                    padding: 8px 12px;
-                    border: none;
-                    background-color: #007bff;
-                    color: #fff;
-                    cursor: pointer;
-                    transition: background-color 0.3s;
-                    border-radius: 4px;
-                }
-
-                    .product-actions button:hover {
-                        background-color: #0056b3;
-                    }
-
-            .out-of-stock {
-                color: #ff0000;
-                font-weight: bold;
-            }
-
-            .pagination {
-                display: flex;
-                list-style-type: none;
-                padding: 0;
-                justify-content: center;
-                margin-top: 20px;
-            }
-
-                .pagination li {
-                    margin: 0 5px;
-                }
-
-                    .pagination li a {
-                        padding: 5px 10px;
-                        text-decoration: none;
-                        color: #007bff;
-                        border: 1px solid #007bff;
-                        border-radius: 4px;
-                    }
-
-                        .pagination li a:hover {
-                            background-color: #007bff;
-                            color: #fff;
+                            </tr>
                         }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>List of Products</h1>
-            <table class="product-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Availability</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="product-table-body">
-                    <!-- Product rows will be dynamically added here -->
-                </tbody>
-            </table>
-            <ul class="pagination" id="pagination"></ul>
-        </div>
+                    </tbody>
+                </table>
+            </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const products = [
-                    { name: "Product Name 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", price: "$10.00", availability: "In stock" },
-                    { name: "Product Name 2", description: "Phasellus auctor justo eu sapien convallis.", price: "$15.00", availability: "Out of stock" },
-                    { name: "Product Name 3", description: "Suspendisse potenti. Fusce nec mi non felis rhoncus dapibus.", price: "$20.00", availability: "In stock" },
-                    { name: "Product Name 4", description: "Cras aliquet consequat risus sit amet bibendum.", price: "$25.00", availability: "In stock" },
-                    { name: "Product Name 5", description: "Vestibulum eu ultrices nunc, eu viverra quam.", price: "$30.00", availability: "Out of stock" },
-                    { name: "Product Name 6", description: "Maecenas volutpat, velit eget condimentum vehicula.", price: "$35.00", availability: "In stock" },
-                    { name: "Product Name 7", description: "Pellentesque at commodo risus. Nam nec ante sed.", price: "$40.00", availability: "In stock" },
-                    { name: "Product Name 8", description: "Duis et aliquam nibh, sit amet consequat justo.", price: "$45.00", availability: "Out of stock" },
-                    { name: "Product Name 9", description: "Curabitur id sapien dictum, interdum justo vel, facilisis turpis.", price: "$50.00", availability: "In stock" },
-                    { name: "Product Name 10", description: "Fusce sed ullamcorper nunc, non tempus arcu.", price: "$55.00", availability: "In stock" },
-                    // Add more products as needed
-                ];
-
-                const itemsPerPage = 5;
-                const pagination = document.getElementById("pagination");
-                const tableBody = document.getElementById("product-table-body");
-
-                function displayProducts(page) {
-                    tableBody.innerHTML = "";
-                    const startIndex = (page - 1) * itemsPerPage;
-                    const endIndex = startIndex + itemsPerPage;
-                    const displayedProducts = products.slice(startIndex, endIndex);
-
-                    displayedProducts.forEach(product => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                                    <td>
-                                        <img class="product-image" src="https://via.placeholder.com/100" alt="Product Image">
-                                        <span>${product.name}</span>
-                                    </td>
-                                    <td class="product-description">${product.description}</td>
-                                    <td>${product.price}</td>
-                                    <td>${product.availability}</td>
-                                    <td class="product-actions">
-                                        <button ${product.availability === "Out of stock" ? "disabled" : ""}>Add to Cart</button>
-                                    </td>
-                                `;
-                        tableBody.appendChild(row);
-                    });
-                }
-
-                function setupPagination() {
-                    const pageCount = Math.ceil(products.length / itemsPerPage);
-                    pagination.innerHTML = "";
-
-                    for (let i = 1; i <= pageCount; i++) {
-                        const li = document.createElement("li");
-                        const link = document.createElement("a");
-                        link.href = "#";
-                        link.textContent = i;
-                        li.appendChild(link);
-                        pagination.appendChild(li);
-
-                        link.addEventListener("click", function (event) {
-                            event.preventDefault();
-                            displayProducts(i);
-                        });
-                    }
-                }
-
-                displayProducts(1);
-                setupPagination();
-            });
-        </script>
-    </body>
-</div>
+        }
+        else
+        {
+            <h1>Access Denied</h1>
+        }
+    }
+    else
+    {
+        <h1>Access Denied</h1>
+    }
+}
