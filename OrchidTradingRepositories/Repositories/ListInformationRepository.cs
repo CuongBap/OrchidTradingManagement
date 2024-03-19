@@ -199,5 +199,34 @@ namespace OrchidTradingRepositories.Repositories
             return false;
         }
 
+        public async Task<IEnumerable<AuctionOrchidDTO>> GetAllAuctionListInformationAsync()
+        {
+            var infors = await orchidTradingManagementContext.ListInformations
+                         .Where(x => x.Status == ListInformationStatus.Approved.ToString() && x.AuctionId != null)
+                         .Include(x => x.Auction)
+                         .ToListAsync();
+
+            var result = infors
+                .Select(async x => new AuctionOrchidDTO
+                {
+                    InforId = x.InforId,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Image = x.Image,
+                    CreatedDate = x.CreatedDate,
+                    Status = x.Status,
+                    UserId = x.UserId,
+                    AuctionId = x.AuctionId,
+                    AuctionName = x.Auction.AuctionName,
+                    Deposit = x.Auction.Deposit,
+                    StartingBid = x.Auction.StartingBid,
+                    OpenDate = x.Auction.OpenDate,
+                    CloseDate = x.Auction.CloseDate,
+                }).Select(x => x.Result)
+            .OrderByDescending(x => x.CreatedDate)
+            .ToList();
+
+            return result;
+        }
     }
 }

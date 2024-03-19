@@ -14,6 +14,7 @@ namespace OrchidTradingRepositories.Repositories
         Task<ListInformation> GetAsync(Guid id);
         Task<IEnumerable<SellOrchidDTO>> GetAllMySellListInformationAsync(string id);
         Task<IEnumerable<SellOrchidDTO>> GetAllSellListInformationAsync();
+        Task<IEnumerable<AuctionOrchidDTO>> GetAllAuctionListInformationAsync();
         Task<bool> UpdateAsync(ListInformation listInformation);
         Task<bool> UpdateAdminAsync(ListInformation listInformation);
         Task<bool> DeleteAsync(Guid id);

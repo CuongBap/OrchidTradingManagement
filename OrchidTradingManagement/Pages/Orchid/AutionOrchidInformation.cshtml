@@ -1,10 +1,11 @@
 ﻿@page
-@model OrchidTradingManagement.Pages.Orchid.SellOrchidInformationModel
+@model OrchidTradingManagement.Pages.Orchid.AutionOrchidInformationModel
 @{
 }
+
 @{
     String jsonString = HttpContext.Session.GetString("userId");
-    
+
     if (!string.IsNullOrEmpty(jsonString))
     {
         if (!jsonString.Equals("e7c115d3-a70a-4a16-b891-c45bd0425a00"))
@@ -13,17 +14,17 @@
                 <div>
                     <h1>Sell Orchid Information</h1>
                 </div>
-            </div> 
-            
+            </div>
+
             var id = HttpContext.Session.GetString("userId");
 
-            @if (Model.SellInfors != null && Model.SellInfors.Any())
+            @if (Model.AuctionInfors != null && Model.AuctionInfors.Any())
+            {
+                @foreach (var orchidlist in Model.AuctionInfors)
                 {
-                    @foreach (var orchidlist in Model.SellInfors)
-                    {
-                        <div>
-                            <div class="container" id="body">
-                                 <div>
+                    <div>
+                        <div class="container" id="body">
+                            <div>
                                 @if (!string.IsNullOrEmpty(id))
                                 {
                                     if (id.Equals(orchidlist.UserId.ToString()))
@@ -40,24 +41,24 @@
                                 </div>
 
                                 <div class="mb-3">
-                               <label for="title" class="form-label">Title</label>
+                                    <label for="title" class="form-label">Title: </label>
                                     @orchidlist.Title
                                 </div>
                                 <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">Description: </label>
                                     @orchidlist.Description
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="image" class="form-label">Image</label>
-                                    <img src="@orchidlist.Image" style="width:300px; height:300px" />                       
+                                    <label for="image" class="form-label">Image: </label>
+                                    <img src="@orchidlist.Image" style="width:300px; height:300px" />
                                 </div>
                                 <div class="mb-3" style="display:none">
                                     <label for="createdDate" class="form-label">CreatedDate</label>
                                     @orchidlist.CreatedDate
                                 </div>
                                 <div class="mb-3" style="display:none">
-                            <label for="status" class="form-label">Status</label>
+                                    <label for="status" class="form-label">Status</label>
                                     @orchidlist.Status
                                 </div>
 
@@ -68,39 +69,42 @@
                                 </div>
 
                                 <div class="mb-3" style="display:none">
-                                    <label for="orchidIdid" class="form-label">OrchidId</label>
-                                    <input type="hidden" class="form-control" id="orchidIdid" asp-for="@orchidlist.OrchidId" />
+                                    <label for="auctionid" class="form-label">AuctionId</label>
+                                    <input type="hidden" class="form-control" id="auctionid" asp-for="@orchidlist.AuctionId" />
                                 </div>
 
                                 <div class="mb-3">
-                            <label for="orchidName" class="form-label">OrchidName</label>
-                                    @orchidlist.OrchidName
+                                    <label for="auctionName" class="form-label">Auction Name: </label>
+                                    @orchidlist.AuctionName
                                 </div>
                                 <div class="mb-3">
-                            <label for="characteristic" class="form-label">Characteristic</label>
-                                    @orchidlist.Characteristic
+                                    <label for="deposit" class="form-label">Deposit: </label>
+                                    @orchidlist.Deposit
                                 </div>
                                 <div class="mb-3">
-                            <label for="unitPrice" class="form-label">UnitPrice</label>
-                                    @orchidlist.UnitPrice
+                                    <label for="startingBid" class="form-label">Starting Bid: </label>
+                                    @orchidlist.StartingBid
                                 </div>
                                 <div class="mb-3">
-                                <label for="quantity" class="form-label">Quantity</label>
-                                    @orchidlist.Quantity
+                                    <label for="openDate" class="form-label">OpenDate: </label>
+                                    @orchidlist.OpenDate
+                                </div>
+                                <div class="mb-3">
+                                    <label for="closeDate" class="form-label">CloseDate: </label>
+                                    @orchidlist.CloseDate
                                 </div>
 
                                 <div class="mb-3 d-flex justify-content-between">
-                                    <button class="btn btn-danger" type="submit">Order</button>
+                                    <button class="btn btn-danger" type="submit">Auction</button>
                                 </div>
 
                             </form>
-                            </div>                         
-                        </div>     
+                        </div>
+                    </div>
                 }
             }
             else
             {
-                
                 <div>
                     <p>no list informations </p>
                 </div>
@@ -149,5 +153,5 @@
                     }
             </style>
         }
-    }   
+    }
 }
