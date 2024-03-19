@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OrchidTradingRepositories.Models.Enums;
+using Microsoft.AspNetCore.Mvc;
 
 namespace OrchidTradingRepositories.Repositories
 {
@@ -147,7 +148,27 @@ namespace OrchidTradingRepositories.Repositories
 
             return result;
         }
+        public async Task<IEnumerable<ListInformation>> SearchListInformationAsync(string searchValue)
+        {
+            var infors = await orchidTradingManagementContext.ListInformations
+                            .Where(x => x.Status == ListInformationStatus.Approved.ToString() && x.OrchidId != null)
+                            .Include(x => x.Orchid)
+                            .ToListAsync();
 
+            IEnumerable<ListInformation> result;
+
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                var searchResult = infors.Where(x => x.Title.Contains(searchValue));
+                result = searchResult.OrderByDescending(x => x.CreatedDate).ToList();
+            }
+            else
+            {
+                  return new List<ListInformation>();
+            }
+
+            return result;
+        }
         public async Task<ListInformation> GetAsync(Guid id)
         {
             return await orchidTradingManagementContext.ListInformations.Where(x => x.InforId == id).FirstOrDefaultAsync();

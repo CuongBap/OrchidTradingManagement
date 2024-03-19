@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models;
+using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
 
 namespace OrchidTradingManagement.Pages
@@ -11,7 +13,8 @@ namespace OrchidTradingManagement.Pages
         private readonly IListInformationRepository _listInformationRepository;
         
         public List<ListInformation> ListInformation { get; set; }
-
+        public IEnumerable<ListInformation> SearchResults { get; set; }
+        public string SearchString { get; set; }
         public IndexModel(ILogger<IndexModel> logger,
             IListInformationRepository listInformationRepository)
         {
@@ -19,9 +22,10 @@ namespace OrchidTradingManagement.Pages
             _listInformationRepository = listInformationRepository;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync(string? searchString)
         {
-
+            SearchString = searchString;
+            SearchResults = await _listInformationRepository.SearchListInformationAsync(SearchString);
         }
     }
 }

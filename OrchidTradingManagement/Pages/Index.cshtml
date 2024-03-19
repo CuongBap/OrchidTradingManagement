@@ -19,24 +19,76 @@
 
 
 
-<div class="container col-xxl-8 px-4 py-5">
-    <div class="row align-items-lg-start g-4 py-4">
-        <div class="col-12 col-lg-6">
-            <h1 class="display-4 fw-bold lh-1 mb-2">
-                Orchid Trading Management
-            </h1>
-            <p class="lead">
-                Orchid Trading Management is a home page for buying and selling orchids,
-                holding an orchid auction.
-            </p>
-        </div>
-        <div class="col-12 col-lg-6">
-            <img src="https://images.pexels.com/photos/6431888/pexels-photo-6431888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                 class="d-block mx-lg-auto img-fluid" width="300" />
-        </div>
-    </div>
-</div>
 
+@{
+    if (Model.SearchResults != null && Model.SearchResults.Any())
+    {
+        <div>
+            <div class="col-12 col-lg-6">
+                <p class="lead">
+                    Search results for "@Model.SearchString".
+                </p>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Title</td>
+                        <td>Description</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var listInformation in Model.SearchResults)
+                    {
+                        <tr>
+                            <td>@listInformation.Title</td>
+                            <td>@listInformation.Description</td>
+
+                            <td><a href="/Orchid/EditSellInformation/@listInformation.InforId">View</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+    else if (Model.SearchString == null)
+    {
+        <div class="container col-xxl-8 px-4 py-5">
+            <div class="row align-items-lg-start g-4 py-4">
+                <div class="col-12 col-lg-6">
+                    <h1 class="display-4 fw-bold lh-1 mb-2">
+                        Orchid Trading Management
+                    </h1>
+                    <p class="lead">
+                        Orchid Trading Management is a home page for buying and selling orchids,
+                        holding an orchid auction.
+                    </p>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <img src="https://images.pexels.com/photos/6431888/pexels-photo-6431888.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                         class="d-block mx-lg-auto img-fluid" width="300" />
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container col-xxl-8 px-4 py-5">
+            <div class="row align-items-lg-start g-4 py-4">
+                <div class="col-12 col-lg-6">
+                    <h1 class="display-4 fw-bold lh-1 mb-2">
+                        No active product or auction found!
+                    </h1>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <img src="https://cdn.dribbble.com/users/1018473/screenshots/4331540/media/6200c5646665e2013c38c06f7f8dd8c3.jpg?resize=800x600&vertical=center"
+                         class="d-block mx-lg-auto img-fluid" width="300" />
+                </div>
+            </div>
+        </div>
+    }
+}
 
 
 
