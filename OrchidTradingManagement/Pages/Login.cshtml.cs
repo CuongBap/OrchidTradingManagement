@@ -56,7 +56,7 @@ namespace OrchidTradingManagement.Pages
                 HttpContext.Session.SetString("userId", result.UserId.ToString());
                 HttpContext.Session.SetString("Role", result.Role.RoleName);
 
-                return RedirectToPage("Orchid/SellListInformation");
+                return RedirectToPage("index");
             }
 
              return Page();

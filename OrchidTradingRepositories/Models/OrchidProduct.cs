@@ -15,7 +15,6 @@ public partial class OrchidProduct
 
     public int Quantity { get; set; }
 
-    public string Status { get; set; } = null!;
 
     public virtual ICollection<ListInformation> ListInformations { get; set; } = new List<ListInformation>();
 

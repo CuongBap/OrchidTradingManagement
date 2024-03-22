@@ -7,17 +7,24 @@ using System.Threading.Tasks;
 
 namespace OrchidTradingRepositories.Models.ViewModels
 {
-    public class EditOrchid
+    public class ListOrderDetail
     {
-        [Required]
-        public Guid OrchidId { get; set; }
-        [Required]
-        public string OrchidName { get; set; } = null!;
-        [Required]
-        public string Characteristic { get; set; } = null!;
-        [Required]
+
+        public Guid OrderDetailId { get; set; }
+
+        public Guid? OrderId {get; set; }
+
+        public Guid? OrchidId { get; set; }
+        
+        public string OrchidName {  get; set; }
+        
+        public string Characteristic {  get; set; }
+        
         public decimal UnitPrice { get; set; }
-        [Required]
+        
         public int Quantity { get; set; }
+
+       
+
     }
 }

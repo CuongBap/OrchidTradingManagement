@@ -34,7 +34,6 @@ namespace OrchidTradingRepositories.Repositories
                 existingOrchid.Characteristic = orchid.Characteristic;
                 existingOrchid.UnitPrice = orchid.UnitPrice;
                 existingOrchid.Quantity = orchid.Quantity;
-                existingOrchid.Status = orchid.Status;
             }
             var result = await orchidTradingManagementContext.SaveChangesAsync();
             if (result > 0)

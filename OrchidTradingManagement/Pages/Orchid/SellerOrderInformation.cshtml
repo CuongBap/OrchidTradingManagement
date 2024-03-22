@@ -1,0 +1,43 @@
+﻿@page
+@model OrchidTradingManagement.Pages.Orchid.SellerOrderInformationModel
+@{
+}
+
+
+<div>
+    <div>
+        Seller Order Information
+    </div>
+</div>
+
+<div>
+    <div>   
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.orderRequest[0].OrderId)</th>
+                    <th>@Html.DisplayNameFor(model => model.orderRequest[0].OrderDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.orderRequest[0].Status)</th>
+                    <th>@Html.DisplayNameFor(model => model.orderRequest[0].Total)</th>
+
+                </tr>
+            </thead>
+            @foreach(var orderIteam in Model.orderRequest)
+            {
+                <tr>
+                    <td>@orderIteam.OrderId</td>
+                    <td>@orderIteam.OrderDate</td>
+                    <td>@orderIteam.Status</td>
+                    <td>@orderIteam.Total</td>
+
+                </tr>
+            }
+
+            <tbody>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

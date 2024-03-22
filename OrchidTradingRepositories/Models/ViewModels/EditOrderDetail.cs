@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OrchidTradingRepositories.Models.ViewModels
 {
-    public class AddOrchid
+    public class EditOrderDetail
     {
-        [Required]
-        public string OrchidName { get; set; } = null!;
-        [Required]
-        public string Characteristic { get; set; } = null!;
-        [Required]
+        public Guid OrderDetailId { get; set; }
+
         public decimal UnitPrice { get; set; }
-        [Required]
+
         public int Quantity { get; set; }
-        
+
+        public Guid? OrchidId { get; set; }
+
+        public Guid? OrderId { get; set; }
     }
 }

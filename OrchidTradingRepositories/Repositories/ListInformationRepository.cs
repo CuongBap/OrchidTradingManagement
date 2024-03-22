@@ -6,21 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using OrchidTradingRepositories.Models.Enums;
 
 namespace OrchidTradingRepositories.Repositories
 {
     public class ListInformationRepository : IListInformationRepository
     {
         private readonly OrchidTradingManagementContext orchidTradingManagementContext = new();
-
-
-        public async Task<ListInformation> AddAsync(ListInformation listInformation)
-        {
-            await orchidTradingManagementContext.ListInformations.AddAsync(listInformation);
-            await orchidTradingManagementContext.SaveChangesAsync();
-            return listInformation;
-        }
-
         public async Task<bool> AddAsync(string id, AddOrchid orchid, AddListInformation listInformation, AddAuction auction)
         {
             if (orchid != null)
@@ -32,7 +24,6 @@ namespace OrchidTradingRepositories.Repositories
                     Characteristic = orchid.Characteristic,
                     UnitPrice = orchid.UnitPrice,
                     Quantity = orchid.Quantity,
-                    Status = orchid.Status,
 
                 };
                 await orchidTradingManagementContext.OrchidProducts.AddAsync(orchidModel);
@@ -46,12 +37,12 @@ namespace OrchidTradingRepositories.Repositories
                         Title = listInformation.Title,
                         Description = listInformation.Description,
                         Image = listInformation.Image,
-                        CreatedDate = listInformation.CreatedDate,
-                        Status = listInformation.Status,
+                        CreatedDate = DateTime.Now,
+                        Status = ListInformationStatus.Processing.ToString(),
                         OrchidId = orchidId,
                         UserId = Guid.Parse(id)
 
-                    });
+                    }) ;
                     var check1 = await orchidTradingManagementContext.SaveChangesAsync();
                     if (check1 > 0)
                         return true;
@@ -68,7 +59,7 @@ namespace OrchidTradingRepositories.Repositories
                     StartingBid = auction.StartingBid,
                     OpenDate = auction.OpenDate,
                     CloseDate = auction.CloseDate,
-                    Status = auction.Status,
+                    
                 };
                 await orchidTradingManagementContext.Auctions.AddAsync(auctionModel);
                 var rs2 = await orchidTradingManagementContext.SaveChangesAsync();
@@ -82,7 +73,7 @@ namespace OrchidTradingRepositories.Repositories
                         Description = listInformation.Description,
                         Image = listInformation.Image,
                         CreatedDate = DateTime.Now,
-                        Status = listInformation.Status,
+                        Status = ListInformationStatus.Processing.ToString(),
                         AuctionId = auctionId,
                         UserId = Guid.Parse(id)
                     });
@@ -106,6 +97,55 @@ namespace OrchidTradingRepositories.Repositories
         public async Task<IEnumerable<ListInformation>> GetAllAsync()
         {
             return await orchidTradingManagementContext.ListInformations.ToListAsync();
+        }
+
+        public async Task<IEnumerable<SellOrchidDTO>> GetAllMySellListInformationAsync(string id)
+        {
+            var result = await orchidTradingManagementContext.ListInformations.Include(x => x.Orchid).Where(x => x.UserId != null && x.UserId == Guid.Parse(id) && !x.Status.Equals(ListInformationStatus.Unavailable.ToString()) && x.OrchidId != null).Select(x => new SellOrchidDTO
+            {
+               InforId = x.InforId,
+               Title = x.Title,
+               Description = x.Description,
+               Image = x.Image,
+               CreatedDate = x.CreatedDate,
+               Status = x.Status,
+               UserId = x.UserId,
+               OrchidId = x.OrchidId,
+               OrchidName = x.Orchid.OrchidName,
+               Characteristic = x.Orchid.Characteristic,
+               UnitPrice = x.Orchid.UnitPrice,
+               Quantity = x.Orchid.Quantity
+            }).OrderByDescending(x => x.Quantity).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<SellOrchidDTO>> GetAllSellListInformationAsync()
+        {
+            var infors = await orchidTradingManagementContext.ListInformations
+                         .Where(x => x.Status == ListInformationStatus.Approved.ToString() && x.OrchidId != null)
+                         .Include(x => x.Orchid)
+                         .ToListAsync();
+
+            var result = infors
+                .Select(async x => new SellOrchidDTO
+            {
+                InforId = x.InforId,
+                Title = x.Title,
+                Description = x.Description,
+                Image = x.Image,
+                CreatedDate = x.CreatedDate,
+                Status = x.Status,
+                UserId = x.UserId,
+                OrchidId = x.OrchidId,
+                OrchidName = x.Orchid.OrchidName,
+                Characteristic = x.Orchid.Characteristic,
+                UnitPrice = x.Orchid.UnitPrice,
+                Quantity = x.Orchid.Quantity
+            }).Select(x => x.Result)
+            .OrderByDescending(x => x.CreatedDate)
+            .ToList();
+
+            return result;
         }
 
         public async Task<ListInformation> GetAsync(Guid id)

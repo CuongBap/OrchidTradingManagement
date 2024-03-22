@@ -3,6 +3,7 @@
 @{
 }
 
+
 <div>
     <div>
         <h1>
@@ -27,23 +28,17 @@
             </div>
 
             <div class="mb-3">
-                <label for="heading" class="form-label">Image:</label>
-                <input type="text" class="form-control" id="image" asp-for="AddListInformationRequest.Image">
+                <label for="featuredImageUpload" class="form-label">Featured Image Upload</label>
+                <input type="file" id="featuredImageUpload" asp-for="FeaturedImage"/>
+                <img src="" id="featuredImageDisplay" style="display:none; width:300px;" />
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Image:</label>
+                <input type="text" class="form-control" id="image" asp-for="AddListInformationRequest.Image" readonly>
                 <span class="text-danger" asp-validation-for="AddListInformationRequest.Image"></span>
             </div>
 
-            <div class="mb-3">
-                <label for="heading" class="form-label">CreateDate:</label>
-                <input type="text" class="form-control" id="heading" asp-for="AddListInformationRequest.CreatedDate">
-                <span class="text-danger" asp-validation-for="AddListInformationRequest.CreatedDate"></span>
-            </div>
-
-            <div class="mb-3">
-                <label for="heading" class="form-label">Status</label>
-                <input type="text" class="form-control" id="status" asp-for="AddListInformationRequest.Status">
-                <span class="text-danger" asp-validation-for="AddListInformationRequest.Status"></span>
-            </div>
-            <!------------------------------------------------------------->
             <div class="form-group">
                 <label asp-for="AddOrchidRequest.OrchidName" class="form-label">Orchid Name:</label>
                 <textarea asp-for="AddOrchidRequest.OrchidName" class="form-control"></textarea>
@@ -60,10 +55,6 @@
                 <label asp-for="AddOrchidRequest.Quantity" class="form-label">Quantity:</label>
                 <textarea asp-for="AddOrchidRequest.Quantity" class="form-control"></textarea>
             </div>
-            <div class="form-group">
-                <label asp-for="AddOrchidRequest.Status" class="form-label">Status:</label>
-                <textarea asp-for="AddOrchidRequest.Status" class="form-control"></textarea>
-            </div>
 
             <div class="mb-3">
                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -72,3 +63,35 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+
+        const featuredImageUploadElement = document.getElementById('featuredImageUpload');
+        const image = document.getElementById('image');
+        const featuredImageDisplay = document.getElementById('featuredImageDisplay');
+
+        async function uploadFeaturedImage(e){
+            console.log(e.target.files[0]);
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/images', {
+                method: 'Post',
+                headers: {
+                    'Accept': '*/*'
+                },
+                body: data
+            }).then(response => response.json())
+                .then(result => {
+                    image.value = result.link;
+                    featuredImageDisplay.style.display = 'block';
+                    featuredImageDisplay.src = result.link;
+                });
+        }
+
+
+        featuredImageUploadElement.addEventListener('change', uploadFeaturedImage);
+    </script>
+}

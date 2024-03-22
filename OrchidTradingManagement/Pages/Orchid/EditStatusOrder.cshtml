@@ -1,0 +1,55 @@
+﻿@page "{id:Guid}"
+@model OrchidTradingManagement.Pages.Orchid.EditStatusOrderModel
+@{
+}
+
+
+<div>
+    <h1>
+        Accept Order
+    </h1>
+</div>
+
+<div>
+    <div class="container">   
+        <form method="post">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EditOrderRequest.OrderId)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EditOrderRequest.OrderId)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EditOrderRequest.OrderDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EditOrderRequest.OrderDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EditOrderRequest.Total)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.EditOrderRequest.Total)
+                </dd>
+
+                <div class="form-group">
+                    <label asp-for="EditOrderRequest.Status" class="control-label"></label>
+                    <input asp-for="EditOrderRequest.Status" class="form-control" />
+                    <span asp-validation-for="EditOrderRequest.Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+        </form>
+
+        <div>
+            <a asp-page="./ListOrderDetailI">Back to List</a>
+        </div>
+    </div>
+    
+</div>
+
+  
+        
+ 

@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 //CRUD Repository
 builder.Services.AddScoped<IListInformationRepository, ListInformationRepository>();
@@ -12,6 +13,9 @@ builder.Services.AddScoped<IOrchidRepository, OrchidRepository>();
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepositoryCloudinary>();
 
 
 // Use session
@@ -34,6 +38,7 @@ if (!app.Environment.IsDevelopment())
 
 //Session
 app.UseSession();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -42,5 +47,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();

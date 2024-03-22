@@ -1,0 +1,49 @@
+﻿@page
+@model OrchidTradingManagement.Pages.Orchid.ListOrderDetailIModel
+@{
+}
+
+
+<div>
+    <div>
+        <h1>
+            List Seller OrderDetail
+        </h1>
+    </div>
+</div>
+
+    <div>
+        
+           <table class="table">
+               <thead>
+                   <tr>
+
+                        <th>@Html.DisplayNameFor(model => model.ListOrderDetailRequest[0].OrderDetailId)</th>
+                        <th>@Html.DisplayNameFor(model => model.ListOrderDetailRequest[0].UnitPrice)</th>
+                        <th>@Html.DisplayNameFor(model => model.ListOrderDetailRequest[0].OrchidId)</th>
+                        <th>@Html.DisplayNameFor(model => model.ListOrderDetailRequest[0].OrderId)</th>
+
+
+                   </tr>
+
+               </thead>
+               
+                <tbody>
+                    @foreach (var orderDetailIteam in Model.ListOrderDetailRequest)
+                    {
+                        <tr>
+                            <td>@orderDetailIteam.OrderDetailId</td>
+                            <td>@orderDetailIteam.UnitPrice</td>
+                            <td>@orderDetailIteam.OrchidId</td>
+                            <td>@orderDetailIteam.OrderId</td>
+
+                            <td>
+                                <a asp-page="./EditStatusOrder" asp-route-id="@orderDetailIteam.OrderId">Accepted</a>
+                            </td>
+                        </tr>
+                    }
+
+               </tbody>
+           </table>
+        
+    </div>

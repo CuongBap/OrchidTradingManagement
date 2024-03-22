@@ -12,6 +12,8 @@ namespace OrchidTradingManagement.Pages.Orchid
 
         [BindProperty]
         public AddListInformation AddListInformationRequest { get; set; }
+        [BindProperty]
+        public IFormFile? FeaturedImage { get; set; }
 
         [BindProperty]
         public AddAuction AddAuctionRequest { get; set; }
@@ -47,9 +49,15 @@ namespace OrchidTradingManagement.Pages.Orchid
             if(ModelState.IsValid)
             {
                 var result = await listInformationRepository.AddAsync( userId , null, AddListInformationRequest, AddAuctionRequest);
-                if (result)
+                if (result != null)
                 {
-                    return RedirectToPage("Orchid/SellListInformation");
+                    TempData["success"] = "Create successfuly";
+                    return Page();
+                }
+                else
+                {
+                    TempData["error"] = "Create fail";
+                    return Page();
                 }
             }
 
