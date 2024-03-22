@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchidTradingManagement", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrchidTradingRepositories", "OrchidTradingRepositories\OrchidTradingRepositories.csproj", "{7DBDA8FC-DF83-4ADB-8680-4E6D5A93C5B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrchidTradingServices", "Services\OrchidTradingServices.csproj", "{D7607528-40B5-49A7-B2EF-8E8CE1CEBEE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7DBDA8FC-DF83-4ADB-8680-4E6D5A93C5B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DBDA8FC-DF83-4ADB-8680-4E6D5A93C5B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DBDA8FC-DF83-4ADB-8680-4E6D5A93C5B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7607528-40B5-49A7-B2EF-8E8CE1CEBEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7607528-40B5-49A7-B2EF-8E8CE1CEBEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7607528-40B5-49A7-B2EF-8E8CE1CEBEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7607528-40B5-49A7-B2EF-8E8CE1CEBEE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
