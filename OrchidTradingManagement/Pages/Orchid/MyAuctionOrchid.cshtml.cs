@@ -2,24 +2,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class MyAuctionOrchidModel : PageModel
     {
-        private readonly IListInformationRepository _listInformationRepository;
+        private readonly IListInformationService _listInformationService;
         public IEnumerable<AuctionOrchidDTO> Auctions { get; set; }
 
-        public MyAuctionOrchidModel(IListInformationRepository listInformationRepository)
+        public MyAuctionOrchidModel(IListInformationService listInformationService)
         {
-            _listInformationRepository = listInformationRepository;
+            _listInformationService = listInformationService;
         }
         public async Task OnGet()
         {
             var id = HttpContext.Session.GetString("userId");
             if (!string.IsNullOrEmpty(id))
             {
-                Auctions = await _listInformationRepository.GetAllMyAuctionListInformationAsync(id);
+                Auctions = await _listInformationService.GetAllMyAuctionListInformationAsync(id);
             }
         }
     }

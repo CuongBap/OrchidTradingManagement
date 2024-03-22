@@ -2,20 +2,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 namespace OrchidTradingManagement.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         readonly private IConfiguration _configuration;
 
         [BindProperty]
         public Login LoginViewModel { get; set; }
 
-        public LoginModel(IUserRepository userRepository, IConfiguration configuration) 
+        public LoginModel(IUserService userService, IConfiguration configuration) 
         {
-            _userRepository = userRepository;
+            _userService = userService;
             _configuration = configuration;
         }
         public void OnGet()
@@ -31,7 +32,7 @@ namespace OrchidTradingManagement.Pages
         
             if(ModelState.IsValid)
             {
-                var result = await _userRepository.LoginAsync(LoginViewModel.Username, LoginViewModel.Password);
+                var result = await _userService.LoginAsync(LoginViewModel.Username, LoginViewModel.Password);
                 if(result == null)
                 {
                     IConfiguration config = new ConfigurationBuilder()

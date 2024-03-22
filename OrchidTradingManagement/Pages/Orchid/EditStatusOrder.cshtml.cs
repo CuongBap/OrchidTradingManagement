@@ -2,25 +2,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class EditStatusOrderModel : PageModel
     {
-        private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IOrderDetailService _orderDetailService;
         [BindProperty]
         public OrderDetail OrderDetails { get; set; } = default!;
-        public EditStatusOrderModel(IOrderDetailRepository orderDetailRepository)
+        public EditStatusOrderModel(IOrderDetailService orderDetailService)
         {
-            this._orderDetailRepository = orderDetailRepository;
+            this._orderDetailService = orderDetailService;
         }
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            if (_orderDetailRepository.GetAllAsync() == null)
+            if (_orderDetailService.GetAllAsync() == null)
             {
                 return NotFound();
             }
-            var orderDetails = _orderDetailRepository.GetAsync(id);
+            var orderDetails = _orderDetailService.GetAsync(id);
 
             if (orderDetails == null)
             {
@@ -34,15 +35,15 @@ namespace OrchidTradingManagement.Pages.Orchid
         }
         public async Task<IActionResult> OnPostAsync(Guid id)
         {
-            if (_orderDetailRepository.GetAllAsync() == null)
+            if (_orderDetailService.GetAllAsync() == null)
             {
                 return NotFound();
             }
-            var orderDetails = _orderDetailRepository.GetAsync(id);
+            var orderDetails = _orderDetailService.GetAsync(id);
 
             if (orderDetails != null)
             {
-                _orderDetailRepository.DeleteAsync(id);
+                _orderDetailService.DeleteAsync(id);
 
             }
 

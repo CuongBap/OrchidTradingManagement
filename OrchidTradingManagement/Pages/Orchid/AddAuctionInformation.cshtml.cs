@@ -2,13 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class AddAuctionInformationModel : PageModel
     {
-        private readonly IListInformationRepository listInformationRepository;
-        private readonly IAuctionRepository auctionRepository;
+        private readonly IListInformationService listInformationService;
+        private readonly IAuctionService auctionService;
 
         [BindProperty]
         public AddListInformation AddListInformationRequest { get; set; }
@@ -18,10 +19,10 @@ namespace OrchidTradingManagement.Pages.Orchid
         [BindProperty]
         public AddAuction AddAuctionRequest { get; set; }
 
-        public AddAuctionInformationModel(IListInformationRepository listInformationRepository, IAuctionRepository auctionRepository)
+        public AddAuctionInformationModel(IListInformationService listInformationService, IAuctionService auctionService)
         {
-            this.listInformationRepository = listInformationRepository;
-            this.auctionRepository = auctionRepository;
+            this.listInformationService = listInformationService;
+            this.auctionService = auctionService;
         }
 
         public void OnGet()
@@ -48,7 +49,7 @@ namespace OrchidTradingManagement.Pages.Orchid
             }
             if(ModelState.IsValid)
             {
-                var result = await listInformationRepository.AddAsync( userId , null, AddListInformationRequest, AddAuctionRequest);
+                var result = await listInformationService.AddAsync( userId , null, AddListInformationRequest, AddAuctionRequest);
                 if (result != null)
                 {
                     TempData["success"] = "Create successfuly";

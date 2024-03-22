@@ -1,5 +1,6 @@
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,14 +9,14 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 
 //CRUD Repository
-builder.Services.AddScoped<IListInformationRepository, ListInformationRepository>();
-builder.Services.AddScoped<IOrchidRepository, OrchidRepository>();
-builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
-builder.Services.AddScoped<IImageRepository, ImageRepositoryCloudinary>();
+builder.Services.AddScoped<OrchidTradingServices.IListInformationService, ListInformationService>();
+builder.Services.AddScoped<OrchidTradingServices.IOrchidService, OrchidService>();
+builder.Services.AddScoped<OrchidTradingServices.IAuctionService, AuctionService>();
+builder.Services.AddScoped<OrchidTradingServices.IUserService, UserService>();
+builder.Services.AddScoped<OrchidTradingServices.IRoleService, RoleService>();
+builder.Services.AddScoped<OrchidTradingServices.IOrderService, OrderService>();
+builder.Services.AddScoped<OrchidTradingServices.IOrderDetailService, OrderDetailService>();
+builder.Services.AddScoped<OrchidTradingServices.IImageService, ImageServiceCloudinary>();
 
 
 // Use session

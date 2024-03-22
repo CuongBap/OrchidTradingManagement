@@ -4,18 +4,19 @@ using OrchidTradingRepositories.Models;
 using OrchidTradingRepositories.Models.Enums;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 namespace OrchidTradingManagement.Pages
 {
     public class RegisterModel : PageModel
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IRoleRepository _roleRepository;
+        private readonly IUserService _userService;
+        private readonly IRoleService _roleService;
         
-        public RegisterModel(IUserRepository userRepository, IRoleRepository roleRepository)
+        public RegisterModel(IUserService userService, IRoleService roleService)
         {
-            _userRepository = userRepository;
-            _roleRepository = roleRepository;
+            _userService = userService;
+            _roleService = roleService;
         }
         [BindProperty]
         public Register RegisterViewModel { get; set; }
@@ -34,9 +35,9 @@ namespace OrchidTradingManagement.Pages
                     Password = RegisterViewModel.Password,
                     Phonenumber = RegisterViewModel.Phonenumber,
                     Status = RegisterViewModel.Status,
-                    RoleId = await _roleRepository.GetRoleId(Role.user.ToString())
+                    RoleId = await _roleService.GetRoleId(Role.user.ToString())
                 };
-                var result = await _userRepository.AddAsync(user);
+                var result = await _userService.AddAsync(user);
                 if(result != null)
                 {
                     return RedirectToPage("Login");

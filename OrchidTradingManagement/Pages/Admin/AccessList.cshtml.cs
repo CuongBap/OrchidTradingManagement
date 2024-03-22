@@ -2,21 +2,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 namespace OrchidTradingManagement.Pages.Admin
 {
     public class AccessListModel : PageModel
     {
-        private readonly IListInformationRepository listInformationRepository;
+        private readonly OrchidTradingServices.IListInformationService listInformationService;
         public List<ListInformation> ListInformations { get; set; }
 
-        public AccessListModel(IListInformationRepository listInformationRepository)
+        public AccessListModel(OrchidTradingServices.IListInformationService listInformationService)
         {
-            this.listInformationRepository = listInformationRepository;
+            this.listInformationService = listInformationService;
         }
         public async Task OnGet()
         {
-            ListInformations = (await listInformationRepository.GetAllAsync())?.ToList();
+            ListInformations = (await listInformationService.GetAllAsync())?.ToList();
         }
         
     }

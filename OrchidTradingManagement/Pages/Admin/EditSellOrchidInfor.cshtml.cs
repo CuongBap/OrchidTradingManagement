@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingServices;
 
 namespace OrchidTradingManagement.Pages.Admin
 {
     public class EditSellOrchidInforModel : PageModel
     {
-        private readonly IListInformationRepository listInformationRepository;
-        private readonly IOrchidRepository orchidRepository;
+        private readonly OrchidTradingServices.IListInformationService listInformationService;
+        private readonly OrchidTradingServices.IOrchidService orchidService;
 
         [BindProperty]
         public ListInformation ListInformation { get; set; }
@@ -20,18 +21,18 @@ namespace OrchidTradingManagement.Pages.Admin
         [BindProperty]
         public IFormFile? FeaturedImage { get; set; }
 
-        public EditSellOrchidInforModel(IListInformationRepository listInformationRepository, IOrchidRepository orchidRepository)
+        public EditSellOrchidInforModel(OrchidTradingServices.IListInformationService listInformationService, OrchidTradingServices.IOrchidService orchidService)
         {
-          this.listInformationRepository = listInformationRepository;
-            this.orchidRepository = orchidRepository;
+          this.listInformationService = listInformationService;
+            this.orchidService = orchidService;
         }
         
         public async Task OnGet(Guid id)
         {
-            ListInformation = await listInformationRepository.GetAsync(id);
+            ListInformation = await listInformationService.GetAsync(id);
             if(ListInformation.OrchidId != null) 
             {
-                Orchid = await orchidRepository.GetAsync((Guid)ListInformation.OrchidId);
+                Orchid = await orchidService.GetAsync((Guid)ListInformation.OrchidId);
             }
         }
 
@@ -39,7 +40,7 @@ namespace OrchidTradingManagement.Pages.Admin
         {
             try
             {
-                await listInformationRepository.UpdateAdminAsync(ListInformation);
+                await listInformationService.UpdateAdminAsync(ListInformation);
                 TempData["success"] = "Updated Orchid Successfully";
                 
             }catch(Exception ex)
