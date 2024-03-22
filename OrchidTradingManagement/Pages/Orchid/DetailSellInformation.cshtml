@@ -1,0 +1,45 @@
+﻿@page
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model OrchidTradingManagement.Pages.Orchid.DetailSellInformationModel
+@{
+    ViewData["Title"] = "Details";
+    string role = HttpContextAccessor.HttpContext.Session.GetString("Role");
+}
+
+<div class="container mt-5">
+    <h1>Sell Details</h1>
+
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Model.ListInformation.Image" alt="@Model.ListInformation.Title" class="img-fluid rounded mx-auto d-block" />
+            </div>
+            <div class="col-md-6">
+                <h3>@Model.ListInformation.Title</h3>
+                <img src="@Model.ListInformation.Image"/>
+                <p>@Model.ListInformation.Description</p>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Created Date:</strong> @Model.ListInformation.CreatedDate.ToString("dd MMMM yyyy")</li>
+                    <li class="list-group-item"><strong>Status:</strong> @Model.ListInformation.Status</li>
+                    </ul>
+                
+                
+               
+                @if (role != null && role.Equals("User"))
+                {
+                    <form class="form-control" method="post">
+                        <p>quantity</p>
+                        <input hidden readonly name="id" value="@Model.ListInformation.OrchidId"/>
+                        <input name="quantity" type="number" value="@Model.quantity" min="1" />
+                        <button class="form-control">Buy</button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>Model not found.</p>
+    }
+</div>
