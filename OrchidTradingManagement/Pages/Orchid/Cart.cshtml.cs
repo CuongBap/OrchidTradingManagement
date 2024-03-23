@@ -11,6 +11,7 @@ namespace OrchidTradingManagement.Pages.Orchid
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderDetailRepository _orderDetailRepository;
+
         public List<Cart> carlist { get; set; }
 
         public CartModel(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
@@ -26,6 +27,29 @@ namespace OrchidTradingManagement.Pages.Orchid
             {
                 carlist = new List<Cart>();
             }
+        }
+
+        public async Task<IActionResult> OnPostUpdateQuantity(int index, int quantity)
+        {
+            carlist = HttpContext.Session.Get<List<Cart>>("cart");
+            if (index >= 0 && index < carlist.Count)
+            {
+                carlist[index].quantity = quantity;
+                HttpContext.Session.Set("cart", carlist);
+                TempData["Success"] = "Quantity updated successfully.";
+            }
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostRemoveFromCart(int index)
+        {
+            carlist = HttpContext.Session.Get<List<Cart>>("cart");
+            if (index >= 0 && index < carlist.Count)
+            {
+                carlist.RemoveAt(index);
+                HttpContext.Session.Set("cart", carlist);
+            }
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPost(string del)
@@ -51,14 +75,13 @@ namespace OrchidTradingManagement.Pages.Orchid
                 carlist.ForEach(async c => await _orderDetailRepository.AddSync(new OrderDetail
                 {
                     OrderDetailId = new Guid(),
-                    UnitPrice = c.quantity*c.Product.UnitPrice,
+                    UnitPrice = c.quantity * c.Product.UnitPrice,
                     Quantity = c.quantity,
                     OrchidId = c.Product.OrchidId
                 }));
                 HttpContext.Session.Set("cart", new List<List<Cart>>());
                 carlist = new List<Cart>();
                 TempData["success"] = "Add to order";
-               
             }
             return Page();
         }

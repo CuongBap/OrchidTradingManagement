@@ -10,6 +10,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart Information</title>
     <style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
@@ -70,6 +82,12 @@
 </head>
 <body>
     <div class="container">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
         <h1>Cart Information</h1>
         @if (Model.carlist.Count() > 0)
         {
@@ -86,11 +104,15 @@
                     {
                         <tr>
                             <td>@Model.carlist[i].Product.OrchidName</td>
-                            <td>@Model.carlist[i].quantity</td>
                             <td>
-                                <form method="post">
-                                    <input type="hidden" name="del" value="@i" />
-                                    <button class="btn">Remove</button>
+                                <form method="post" asp-page-handler="UpdateQuantity" asp-route-index="@i">
+                                    <input type="number" name="quantity" value="@Model.carlist[i].quantity" min="1" required />
+                                    <button type="submit" class="btn">Update</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" asp-page-handler="RemoveFromCart" asp-route-index="@i">
+                                    <button type="submit" class="btn">Remove</button>
                                 </form>
                             </td>
                         </tr>
