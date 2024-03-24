@@ -51,7 +51,7 @@
                                     <a class="dropdown-item" href="/Orchid/ListOrderInformation">View Order</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/Orchid/SellListInformation">View Active Auctions</a>
+                                    <a class="dropdown-item" href="/Orchid/ActiveAuction">View Active Auctions</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="">My Registered Biddings</a>
@@ -90,8 +90,8 @@
                             </li>
                         }
                         <li class="nav-item" style="margin:auto;">
-                            <form asp-page="./Index" method="get">
-                                <input style="width: 80%; float:left; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: whitesmoke;" type="text" name="searchString" class="form-control" />
+                            <form id="searchForm" onsubmit="submitForm(event)">
+                                <input id="searchInput" style="width: 80%; float:left; border-top-left-radius: 20px; border-bottom-left-radius: 20px; background: whitesmoke;" type="text" name="searchString" class="form-control" />
                                 <button style="width:20%; float:left; border: none; background:transparent; height:40px;" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </li>
@@ -130,7 +130,17 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Prevent default form submission
 
+            var searchValue = document.getElementById("searchInput").value;
+            var url = window.location.origin + "/?searchString=" + searchValue;
+            window.location.href = url; // Redirect to the constructed URL
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
