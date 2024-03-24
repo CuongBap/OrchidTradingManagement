@@ -3,6 +3,13 @@
 @{
 }
 
+@{
+    String jsonString = HttpContext.Session.GetString("userId");
+
+    if (!string.IsNullOrEmpty(jsonString))
+    {
+        if (!jsonString.Equals("e7c115d3-a70a-4a16-b891-c45bd0425a00"))
+        {
 <div>
     <div>
         <h1>List Order </h1>
@@ -45,3 +52,15 @@
         </tbody>
     </table>
 </div>
+
+        }
+        else
+        {
+            <h1>Access Denied</h1>
+        }
+    }
+    else
+    {
+        <h1>Access Denied</h1>
+    }
+}

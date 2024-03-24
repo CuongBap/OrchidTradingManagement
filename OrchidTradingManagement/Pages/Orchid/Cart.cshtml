@@ -3,6 +3,13 @@
 @{
 }
 
+@{
+    String jsonString = HttpContext.Session.GetString("userId");
+
+    if (!string.IsNullOrEmpty(jsonString))
+    {
+        if (!jsonString.Equals("e7c115d3-a70a-4a16-b891-c45bd0425a00"))
+        {
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,6 +102,7 @@
                 <thead>
                     <tr>
                         <th>Orchid</th>
+                        <th>UnitPrice</th>
                         <th>Quantity</th>
                         <th></th>
                     </tr>
@@ -104,6 +112,7 @@
                     {
                         <tr>
                             <td>@Model.carlist[i].Product.OrchidName</td>
+                            <td>@Model.carlist[i].Product.UnitPrice</td>
                             <td>
                                 <form method="post" asp-page-handler="UpdateQuantity" asp-route-index="@i">
                                     <input type="number" name="quantity" value="@Model.carlist[i].quantity" min="1" required />
@@ -132,3 +141,15 @@
     </div>
 </body>
 </html>
+
+        }
+        else
+        {
+            <h1>Access Denied</h1>
+        }
+    }
+    else
+    {
+        <h1>Access Denied</h1>
+    }
+}

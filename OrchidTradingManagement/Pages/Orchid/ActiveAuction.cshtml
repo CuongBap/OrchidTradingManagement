@@ -20,31 +20,9 @@
                 <h5><a href="/Orchid/DetailSellInformation/?ID=@listing.InforId" style="color: black;">@listing.Title</a></h5>
             <div>@listing.Description</div>
 @*            <div>Bid: $@listing.Auction("N2")</div>
-*@            <div>Listed by: @listing.UserId</div>
+*@            <div>Listed by: @listing.OpenDate</div>
         </div>
     </div>
 </div>
 }
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var listInformation in Model.ListInformations)
-            {
-                <tr>
-                    <td>@listInformation.Title</td>
-                    <td>@listInformation.Description</td>
-                    
-                    <td><a href="/Orchid/DetailSellInformation/?ID=@listInformation.InforId">View</a></td>
-                </tr>
-            }
-        </tbody>
-        </tab>
-</div>
