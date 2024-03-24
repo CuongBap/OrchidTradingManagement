@@ -54,7 +54,7 @@ namespace OrchidTradingManagement.Pages.Orchid
             }
             HttpContext.Session.Set("cart", listcart);
             TempData["success"] = "Add product to cart";
-            return RedirectToPage("SellListInformation");
+            return RedirectToPage("SellOrchidInformation");
         }
     }
 }
