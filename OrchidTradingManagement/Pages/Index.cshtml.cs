@@ -9,9 +9,10 @@ namespace OrchidTradingManagement.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IListInformationRepository _listInformationRepository;
-        
-        public List<ListInformation> ListInformation { get; set; }
 
+        public List<ListInformation> ListInformation { get; set; }
+        public IEnumerable<ListInformation> SearchResults { get; set; }
+        public string SearchString { get; set; }
         public IndexModel(ILogger<IndexModel> logger,
             IListInformationRepository listInformationRepository)
         {
@@ -19,9 +20,10 @@ namespace OrchidTradingManagement.Pages
             _listInformationRepository = listInformationRepository;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync(string? searchString)
         {
-
+            SearchString = searchString;
+            SearchResults = await _listInformationRepository.SearchListInformationAsync(SearchString);
         }
     }
 }
