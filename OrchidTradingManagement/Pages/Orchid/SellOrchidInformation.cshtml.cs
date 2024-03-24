@@ -1,25 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.ViewModels;
-using OrchidTradingRepositories.Repositories;
+using OrchidTradingRepositories.Services;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class SellOrchidInformationModel : PageModel
     {
-        private readonly IListInformationRepository _listInformationRepository;
+        private readonly IListInformationService _listInformationService;
 
         public IEnumerable<SellOrchidDTO> SellInfors { get; set; }
 
-        public SellOrchidInformationModel(IListInformationRepository listInformationRepository)
+        public SellOrchidInformationModel(IListInformationService listInformationService)
         {
-            _listInformationRepository = listInformationRepository;
+            _listInformationService = listInformationService;
         }
 
         
         public async Task OnGet()
         { 
-            SellInfors = await _listInformationRepository.GetAllSellListInformationAsync(); 
+            SellInfors = await _listInformationService.GetAllSellListInformationAsync(); 
             
         }
     }

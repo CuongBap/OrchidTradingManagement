@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrchidTradingRepositories.Repositories
+namespace OrchidTradingRepositories.Services
 {
-    public interface IListInformationRepository
+    public interface IListInformationService
     {
         Task<IEnumerable<ListInformation>> GetAllAsync();
         Task<ListInformation> GetAsync(Guid id);
@@ -20,6 +20,6 @@ namespace OrchidTradingRepositories.Repositories
         Task<bool> UpdateAsync(ListInformation listInformation);
         Task<bool> UpdateAdminAsync(ListInformation listInformation);
         Task<bool> DeleteAsync(Guid id);
-        Task<bool> AddAsync(string id , AddOrchid orchid, AddListInformation listInformation, AddAuction addAuctionRequest);
+        Task<bool> AddAsync(string id, AddOrchid orchid, AddListInformation listInformation, AddAuction addAuctionRequest);
     }
 }

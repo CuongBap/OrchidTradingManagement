@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.Enums;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Models;
-using OrchidTradingRepositories.Repositories;
+using OrchidTradingRepositories.Services;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class MyEditSellOrchidModel : PageModel
     {
-        private readonly IOrchidRepository orchidRepository;
-        private readonly IListInformationRepository listInformationRepository;
+        private readonly IOrchidService orchidService;
+        private readonly IListInformationService listInformationService;
 
         [BindProperty]
         public EditListInformation EditListInformationRequest { get; set; }
@@ -21,14 +21,14 @@ namespace OrchidTradingManagement.Pages.Orchid
         [BindProperty]
         public IFormFile? FeaturedImage { get; set; }
 
-        public MyEditSellOrchidModel(IListInformationRepository listInformationRepository, IOrchidRepository orchidRepository)
+        public MyEditSellOrchidModel(IListInformationService listInformationService, IOrchidService orchidService)
         {
-            this.orchidRepository = orchidRepository;
-            this.listInformationRepository = listInformationRepository;
+            this.orchidService = orchidService;
+            this.listInformationService = listInformationService;
         }
         public async Task OnGet(Guid id)
         {
-            var listinforDomainModel = await listInformationRepository.GetAsync(id);
+            var listinforDomainModel = await listInformationService.GetAsync(id);
             if (listinforDomainModel != null)
             {
                 EditListInformationRequest = new EditListInformation
@@ -45,7 +45,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                 };
                 if (listinforDomainModel.OrchidId != null)
                 {
-                    var orchidDomainModel = await orchidRepository.GetAsync((Guid)EditListInformationRequest.OrchidId);
+                    var orchidDomainModel = await orchidService.GetAsync((Guid)EditListInformationRequest.OrchidId);
                     if (orchidDomainModel != null)
                     {
                         EditOrchidRequest = new EditOrchid
@@ -92,8 +92,8 @@ namespace OrchidTradingManagement.Pages.Orchid
                         Quantity = EditOrchidRequest.Quantity,
                     };
 
-                    await listInformationRepository.UpdateAsync(listinforDomainModel);
-                    await orchidRepository.UpdateAsync(orchidDomainModel);
+                    await listInformationService.UpdateAsync(listinforDomainModel);
+                    await orchidService.UpdateAsync(orchidDomainModel);
 
                 TempData["success"] = "Edit successfuly";
                 return Page();
@@ -112,7 +112,7 @@ namespace OrchidTradingManagement.Pages.Orchid
 
         public async Task<IActionResult> OnPostDelete()
         {
-            var deleted = await listInformationRepository.DeleteAsync(EditListInformationRequest.InforId);
+            var deleted = await listInformationService.DeleteAsync(EditListInformationRequest.InforId);
             if(deleted) {
                 TempData["success"] = "Delete successfully";
                 return RedirectToPage("MySellOrchid");

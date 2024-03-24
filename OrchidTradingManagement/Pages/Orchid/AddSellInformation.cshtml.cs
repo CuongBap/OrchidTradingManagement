@@ -2,13 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
+using OrchidTradingRepositories.Services;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class AddSellInformationModel : PageModel
     {
-        private readonly IListInformationRepository listInformationRepository;
-        private readonly IOrchidRepository orchidRepository;
+        private readonly IListInformationService listInformationService;
+        private readonly IOrchidService orchidService;
 
         [BindProperty]
         public AddListInformation AddListInformationRequest { get; set; }
@@ -19,10 +20,10 @@ namespace OrchidTradingManagement.Pages.Orchid
         [BindProperty]
         public IFormFile? FeaturedImage { get; set; }
 
-        public AddSellInformationModel(IListInformationRepository listInformationRepository, IOrchidRepository orchidRepository)
+        public AddSellInformationModel(IListInformationService listInformationService, IOrchidService orchidService)
         {
-            this.listInformationRepository = listInformationRepository;
-            this.orchidRepository = orchidRepository;
+            this.listInformationService = listInformationService;
+            this.orchidService = orchidService;
         }
         public void OnGet()
         {
@@ -38,7 +39,7 @@ namespace OrchidTradingManagement.Pages.Orchid
             //    CreatedDate = DateTime.Now,
             //    Status = AddListInformationRequest.Status,
             //};
-            //await listInformationRepository.AddAsync(listInformation);
+            //await listInformationService.AddAsync(listInformation);
 
             //return Page();
 
@@ -49,7 +50,7 @@ namespace OrchidTradingManagement.Pages.Orchid
             }
             if(ModelState.IsValid)
             {
-                var result = await listInformationRepository.AddAsync(userId ,AddOrchidRequest, AddListInformationRequest, null);
+                var result = await listInformationService.AddAsync(userId ,AddOrchidRequest, AddListInformationRequest, null);
                 if(result != null)
                 {
                     TempData["success"] = "Create successfuly";

@@ -1,4 +1,5 @@
 using OrchidTradingRepositories.Models.ViewModels;
+using OrchidTradingRepositories.Services;
 using OrchidTradingRepositories.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,13 +9,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 
 //CRUD Repository
-builder.Services.AddScoped<IListInformationRepository, ListInformationRepository>();
-builder.Services.AddScoped<IOrchidRepository, OrchidRepository>();
-builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+builder.Services.AddScoped<IListInformationService, ListInformationService>();
+builder.Services.AddScoped<IOrchidService, OrchidService>();
+builder.Services.AddScoped<IAuctionService, AuctionService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<IImageRepository, ImageRepositoryCloudinary>();
 
 

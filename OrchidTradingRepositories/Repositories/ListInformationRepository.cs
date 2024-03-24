@@ -88,27 +88,6 @@ namespace OrchidTradingRepositories.Repositories
             return false;
 
         }
-        public async Task<IEnumerable<ListInformation>> SearchListInformationAsync(string searchValue)
-        {
-            var infors = await orchidTradingManagementContext.ListInformations
-                            .Where(x => x.Status == ListInformationStatus.Approved.ToString() && x.OrchidId != null)
-                            .Include(x => x.Orchid)
-                            .ToListAsync();
-
-            IEnumerable<ListInformation> result;
-
-            if (!string.IsNullOrEmpty(searchValue))
-            {
-                var searchResult = infors.Where(x => x.Title.Contains(searchValue));
-                result = searchResult.OrderByDescending(x => x.CreatedDate).ToList();
-            }
-            else
-            {
-                return new List<ListInformation>();
-            }
-
-            return result;
-        }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
@@ -271,6 +250,28 @@ namespace OrchidTradingRepositories.Repositories
                CloseDate = x.Auction.CloseDate,
 
                }).OrderByDescending(x => x.CreatedDate).ToListAsync();
+            return result;
+        }
+        public async Task<IEnumerable<ListInformation>> SearchListInformationAsync(string searchValue)
+        {
+            var infors = await orchidTradingManagementContext.ListInformations
+                            .Where(x => x.Status == ListInformationStatus.Approved.ToString() && (x.OrchidId != null || x.AuctionId != null))
+                            .Include(x => x.Orchid)
+                            .Include(x => x.Auction)
+                            .ToListAsync();
+
+            IEnumerable<ListInformation> result;
+
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                var searchResult = infors.Where(x => x.Title.Contains(searchValue));
+                result = searchResult.OrderByDescending(x => x.CreatedDate).ToList();
+            }
+            else
+            {
+                return new List<ListInformation>();
+            }
+
             return result;
         }
     }

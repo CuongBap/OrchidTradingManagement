@@ -17,10 +17,10 @@
                 <img src="@listing.Image" style="max-width: 400px; max-height: 400px;" />
         </div>
         <div class="col col-xs-6 col-lg-7">
-            <h5><a asp-action="Details" asp-route-id="@listing.Auction" style="color: black;">@listing.Title</a></h5>
+                <h5><a href="/Orchid/DetailSellInformation/?ID=@listing.InforId" style="color: black;">@listing.Title</a></h5>
             <div>@listing.Description</div>
 @*            <div>Bid: $@listing.Auction("N2")</div>
-*@            <div>Listed by: Email</div>
+*@            <div>Listed by: @listing.UserId</div>
         </div>
     </div>
 </div>

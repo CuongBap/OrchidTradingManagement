@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models;
 using OrchidTradingRepositories.Models.Enums;
 using OrchidTradingRepositories.Models.ViewModels;
-using OrchidTradingRepositories.Repositories;
+using OrchidTradingRepositories.Services;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class MyEditAuctionOrchidModel : PageModel
     {
-        private readonly IListInformationRepository listInformationRepository;
-        private readonly IAuctionRepository auctionRepository;
+        private readonly IListInformationService listInformationService;
+        private readonly IAuctionService auctionService;
 
         [BindProperty]
         public EditListInformation EditListInformationRequest { get; set; }
@@ -21,14 +21,14 @@ namespace OrchidTradingManagement.Pages.Orchid
         [BindProperty]
         public IFormFile? FeaturedImage { get; set; }
 
-        public MyEditAuctionOrchidModel(IListInformationRepository listInformationRepository, IAuctionRepository auctionRepository)
+        public MyEditAuctionOrchidModel(IListInformationService listInformationService, IAuctionService auctionService)
         {
-            this.listInformationRepository = listInformationRepository;
-            this.auctionRepository = auctionRepository;
+            this.listInformationService = listInformationService;
+            this.auctionService = auctionService;
         }
         public async Task OnGet(Guid id)
         {
-            var listinforDomainModel = await listInformationRepository.GetAsync(id);
+            var listinforDomainModel = await listInformationService.GetAsync(id);
             if (listinforDomainModel != null)
             {
                 EditListInformationRequest = new EditListInformation
@@ -45,7 +45,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                 };
                 if (listinforDomainModel.AuctionId != null)
                 {
-                    var auctionDomainModel = await auctionRepository.GetAsync((Guid)EditListInformationRequest.AuctionId);
+                    var auctionDomainModel = await auctionService.GetAsync((Guid)EditListInformationRequest.AuctionId);
                     if (auctionDomainModel != null)
                     {
                         EditAuctionRequest = new EditAuction
@@ -91,8 +91,8 @@ namespace OrchidTradingManagement.Pages.Orchid
                     CloseDate = EditAuctionRequest.CloseDate,
                 };
 
-                await listInformationRepository.UpdateAsync(listinforDomainModel);
-                await auctionRepository.UpdateAsync(auctionDomainModel);
+                await listInformationService.UpdateAsync(listinforDomainModel);
+                await auctionService.UpdateAsync(auctionDomainModel);
 
                 TempData["success"] = "Edit successfuly";
                 return Page();
@@ -108,7 +108,7 @@ namespace OrchidTradingManagement.Pages.Orchid
 
         public async Task<IActionResult> OnPostDelete()
         {
-            var deleted = await listInformationRepository.DeleteAsync(EditListInformationRequest.InforId);
+            var deleted = await listInformationService.DeleteAsync(EditListInformationRequest.InforId);
             if (deleted)
             {
                 TempData["success"] = "Delete successfully";

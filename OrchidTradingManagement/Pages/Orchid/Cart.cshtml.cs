@@ -3,21 +3,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingManagement.Extension;
 using OrchidTradingManagement.Models;
 using OrchidTradingRepositories.Models;
-using OrchidTradingRepositories.Repositories;
+using OrchidTradingRepositories.Services;
 
 namespace OrchidTradingManagement.Pages.Orchid
 {
     public class CartModel : PageModel
     {
-        private readonly IOrderRepository _orderRepository;
-        private readonly IOrderDetailRepository _orderDetailRepository;
+        private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _orderDetailService;
 
         public List<Cart> carlist { get; set; }
 
-        public CartModel(IOrderRepository orderRepository, IOrderDetailRepository orderDetailRepository)
+        public CartModel(IOrderService orderService, IOrderDetailService orderDetailService)
         {
-            _orderRepository = orderRepository;
-            _orderDetailRepository = orderDetailRepository;
+            _orderService = orderService;
+            _orderDetailService = orderDetailService;
         }
 
         public async Task OnGet()
@@ -64,7 +64,7 @@ namespace OrchidTradingManagement.Pages.Orchid
             {
                 decimal total = 0;
                 carlist.ForEach(c => total += c.Product.UnitPrice * c.quantity);
-                Order order = await _orderRepository.AddAsync(new Order
+                Order order = await _orderService.AddAsync(new Order
                 {
                     OrderId = new Guid(),
                     OrderDate = DateTime.Now,
@@ -72,7 +72,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                     Total = total,
                     BuyerId = Guid.Parse(HttpContext.Session.GetString("userId"))
                 });
-                carlist.ForEach(async c => await _orderDetailRepository.AddSync(new OrderDetail
+                carlist.ForEach(async c => await _orderDetailService.AddSync(new OrderDetail
                 {
                     OrderDetailId = new Guid(),
                     UnitPrice = c.quantity * c.Product.UnitPrice,
