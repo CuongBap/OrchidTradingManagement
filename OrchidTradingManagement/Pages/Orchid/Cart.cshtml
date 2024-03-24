@@ -17,18 +17,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart Information</title>
     <style>
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-
-        .alert-success {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
-        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f9f9f9;
@@ -57,7 +45,7 @@
         }
 
         th, td {
-            padding: 10px;
+            padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -65,6 +53,7 @@
         th {
             background-color: #f2f2f2;
             font-weight: bold;
+            color: #333;
         }
 
         .btn {
@@ -84,6 +73,18 @@
         .empty-cart {
             text-align: center;
             margin-top: 20px;
+            color: #888;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+            color: #3c763d;
+            text-align: center;
         }
     </style>
 </head>
@@ -91,7 +92,7 @@
     <div class="container">
         @if (TempData["Success"] != null)
         {
-            <div class="alert alert-success">
+            <div class="alert">
                 @TempData["Success"]
             </div>
         }
@@ -102,7 +103,7 @@
                 <thead>
                     <tr>
                         <th>Orchid</th>
-                        <th>UnitPrice</th>
+                        <th>Unit Price</th>
                         <th>Quantity</th>
                         <th></th>
                     </tr>
@@ -112,7 +113,7 @@
                     {
                         <tr>
                             <td>@Model.carlist[i].Product.OrchidName</td>
-                            <td>@Model.carlist[i].Product.UnitPrice</td>
+                            <td>$@Model.carlist[i].Product.UnitPrice</td>
                             <td>
                                 <form method="post" asp-page-handler="UpdateQuantity" asp-route-index="@i">
                                     <input type="number" name="quantity" value="@Model.carlist[i].quantity" min="1" required />
@@ -129,27 +130,15 @@
                 </tbody>
             </table>
             <form method="post">
-                <button class="btn">Order</button>
+                <button class="btn">Place Order</button>
             </form>
         }
         else
         {
             <div class="empty-cart">
-                <h3>Cart empty</h3>
+                <h3>Your cart is empty</h3>
             </div>
         }
     </div>
 </body>
 </html>
-
-        }
-        else
-        {
-            <h1>Access Denied</h1>
-        }
-    }
-    else
-    {
-        <h1>Access Denied</h1>
-    }
-}
