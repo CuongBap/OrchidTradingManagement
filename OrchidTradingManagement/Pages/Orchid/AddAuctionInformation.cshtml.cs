@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.ViewModels;
 using OrchidTradingRepositories.Repositories;
@@ -47,7 +48,8 @@ namespace OrchidTradingManagement.Pages.Orchid
             {
                 return BadRequest("You haven't logined");
             }
-            if(ModelState.IsValid)
+            ValidateAddService();
+            if (ModelState.IsValid)
             {
                 var result = await _iListInformationService.AddAsync( userId , null, AddListInformationRequest, AddAuctionRequest);
                 if (result != null)
@@ -65,6 +67,22 @@ namespace OrchidTradingManagement.Pages.Orchid
             
             return Page();
 
+        }
+
+        private void ValidateAddService()
+        {
+            if (AddAuctionRequest.OpenDate.Date < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("AddAuctionRequest.OpenDate",
+                    $"OpenDate can only be today's date or a furture date.");
+            }
+
+            if(AddAuctionRequest.CloseDate.Date < AddAuctionRequest.OpenDate.Date)
+            {
+                ModelState.AddModelError("AddAuctionRequest.CloseDate",
+                                $"Close date is greater than Open Date.");
+                    
+            }
         }
     }
 }

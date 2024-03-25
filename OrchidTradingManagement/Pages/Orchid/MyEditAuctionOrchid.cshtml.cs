@@ -65,6 +65,7 @@ namespace OrchidTradingManagement.Pages.Orchid
 
         public async Task<IActionResult> OnPostEdit()
         {
+            ValidateAddService();
             if (ModelState.IsValid)
             {
 
@@ -95,7 +96,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                 await auctionService.UpdateAsync(auctionDomainModel);
 
                 TempData["success"] = "Edit successfuly";
-                return Page();
+                return RedirectToPage("/Orchid/MyAuctionOrchid");
             }
             else
             {
@@ -117,6 +118,22 @@ namespace OrchidTradingManagement.Pages.Orchid
 
             TempData["Error"] = "Edit Fail";
             return Page();
+        }
+
+        private void ValidateAddService()
+        {
+            if (EditAuctionRequest.OpenDate.Date < DateTime.Now.Date)
+            {
+                ModelState.AddModelError("EditAuctionRequest.OpenDate",
+                    $"OpenDate can only be today's date or a furture date.");
+            }
+
+            if (EditAuctionRequest.CloseDate.Date < EditAuctionRequest.OpenDate.Date)
+            {
+                ModelState.AddModelError("EditAuctionRequest.CloseDate",
+                                $"Close date is greater than Open Date.");
+
+            }
         }
     }
 }

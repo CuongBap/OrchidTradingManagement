@@ -96,7 +96,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                     await orchidService.UpdateAsync(orchidDomainModel);
 
                 TempData["success"] = "Edit successfuly";
-                return Page();
+                return RedirectToPage("/Orchid/MySellOrchid");
 
 
                 

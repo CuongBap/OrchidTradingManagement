@@ -76,18 +76,22 @@
             <div class="form-group">
                 <label asp-for="EditOrchidRequest.OrchidName" class="form-label">Orchid Name:</label>
                 <textarea asp-for="EditOrchidRequest.OrchidName" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="EditOrchidRequest.OrchidName"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EditOrchidRequest.Characteristic" class="form-label">Characteric:</label>
                 <textarea asp-for="EditOrchidRequest.Characteristic" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="EditOrchidRequest.Characteristic"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EditOrchidRequest.UnitPrice" class="form-label">UnitPrice:</label>
                 <textarea asp-for="EditOrchidRequest.UnitPrice" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="EditOrchidRequest.UnitPrice"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EditOrchidRequest.Quantity" class="form-label">Quantity:</label>
                 <textarea asp-for="EditOrchidRequest.Quantity" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="EditOrchidRequest.Quantity"></span>
             </div>
 
             <div class="mb-3 d-flex justify-content-between">

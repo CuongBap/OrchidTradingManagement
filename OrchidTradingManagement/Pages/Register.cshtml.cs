@@ -39,8 +39,10 @@ namespace OrchidTradingManagement.Pages
                 var result = await _userService.AddAsync(user);
                 if(result != null)
                 {
+                    TempData["success"] = "Register successfuly";
                     return RedirectToPage("Login");
                 }
+                TempData["error"] = "Username existed";
                 return Page();
             }
             else

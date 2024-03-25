@@ -66,20 +66,27 @@ namespace OrchidTradingManagement.Pages.Orchid
                 carlist.ForEach(c => total += c.Product.UnitPrice * c.quantity);
                 Order order = await _orderService.AddAsync(new Order
                 {
-                    OrderId = new Guid(),
+                    OrderId = Guid.NewGuid(),
                     OrderDate = DateTime.Now,
                     Status = "pending",
                     Total = total,
                     BuyerId = Guid.Parse(HttpContext.Session.GetString("userId"))
                 });
-                carlist.ForEach(async c => await _orderDetailService.AddSync(new OrderDetail
+
+
+                foreach (var cartItem in carlist)
                 {
-                    OrderDetailId = new Guid(),
-                    UnitPrice = c.quantity * c.Product.UnitPrice,
-                    Quantity = c.quantity,
-                    OrchidId = c.Product.OrchidId
-                }));
-                HttpContext.Session.Set("cart", new List<List<Cart>>());
+                    await _orderDetailService.AddSync(new OrderDetail
+                    {
+                        OrderDetailId = Guid.NewGuid(),
+                        UnitPrice = cartItem.quantity * cartItem.Product.UnitPrice,
+                        Quantity = cartItem.quantity,
+                        OrchidId = cartItem.Product.OrchidId,
+                        OrderId = order.OrderId
+                    });
+                }
+
+                HttpContext.Session.Set("cart", new List<Cart>());
                 carlist = new List<Cart>();
                 TempData["success"] = "Add to order";
             }

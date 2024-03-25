@@ -76,22 +76,27 @@
             <div class="form-group">
                 <label asp-for="EditAuctionRequest.AuctionName" class="form-label">Auction Name:</label>
                 <textarea asp-for="EditAuctionRequest.AuctionName" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="EditAuctionRequest.AuctionName"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EditAuctionRequest.Deposit" class="form-label">Deposit:</label>
                 <textarea asp-for="EditAuctionRequest.Deposit" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="EditAuctionRequest.Deposit"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EditAuctionRequest.StartingBid" class="form-label">StartingBid:</label>
                 <textarea asp-for="EditAuctionRequest.StartingBid" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="EditAuctionRequest.StartingBid"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EditAuctionRequest.OpenDate" class="form-label">Open Date:</label>
                 <input type="date" class="form-control" id="opendDate" asp-for="EditAuctionRequest.OpenDate">
+                <span class="text-danger" asp-validation-for="EditAuctionRequest.OpenDate"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EditAuctionRequest.CloseDate" class="form-label">Close Date:</label>
                 <input type="date" class="form-control" id="closeDate" asp-for="EditAuctionRequest.CloseDate">
+                <span class="text-danger" asp-validation-for="EditAuctionRequest.CloseDate"></span>
             </div>
 
             <div class="mb-3 d-flex justify-content-between">

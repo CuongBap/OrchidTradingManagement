@@ -48,18 +48,22 @@
             <div class="form-group">
                 <label asp-for="AddOrchidRequest.OrchidName" class="form-label">Orchid Name:</label>
                 <textarea asp-for="AddOrchidRequest.OrchidName" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="AddOrchidRequest.OrchidName"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AddOrchidRequest.Characteristic" class="form-label">Characteric:</label>
                 <textarea asp-for="AddOrchidRequest.Characteristic" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="AddOrchidRequest.Characteristic"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AddOrchidRequest.UnitPrice" class="form-label">UnitPrice:</label>
                 <textarea asp-for="AddOrchidRequest.UnitPrice" class="form-control"></textarea>
+                            <span class="text-danger" asp-validation-for="AddOrchidRequest.UnitPrice"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AddOrchidRequest.Quantity" class="form-label">Quantity:</label>
                 <textarea asp-for="AddOrchidRequest.Quantity" class="form-control"></textarea>
+                <span class="text-danger" asp-validation-for="AddOrchidRequest.Quantity"></span>
             </div>
 
             <div class="mb-3">
@@ -110,6 +114,6 @@
     }
     else
     {
-        <h1>Access Denied</h1>
+        <h1>You haven't logined</h1>
     }
 }
