@@ -11,9 +11,11 @@ namespace OrchidTradingRepositories.Repositories
     public class OrderDetailRepository : IOrderDetailRepository
     {
         public readonly OrchidTradingManagementContext _dbContext = new();
-        public Task<OrderDetail> AddSync(OrderDetail orderDetail)
+        public async Task<OrderDetail> AddSync(OrderDetail orderDetail)
         {
-            throw new NotImplementedException();
+            await _dbContext.OrderDetails.AddAsync(orderDetail);
+            await _dbContext.SaveChangesAsync();
+            return orderDetail;
         }
 
         public Task<bool> DeleteAsync(Guid orderDetailId)
@@ -37,6 +39,6 @@ namespace OrchidTradingRepositories.Repositories
             throw new NotImplementedException();
         }
 
-        
+
     }
 }

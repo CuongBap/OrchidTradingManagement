@@ -140,7 +140,6 @@ public partial class OrchidTradingManagementContext : DbContext
             entity.Property(e => e.OrchidId).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Characteristic).HasMaxLength(100);
             entity.Property(e => e.OrchidName).HasMaxLength(100);
-            entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.UnitPrice).HasColumnType("money");
         });
 

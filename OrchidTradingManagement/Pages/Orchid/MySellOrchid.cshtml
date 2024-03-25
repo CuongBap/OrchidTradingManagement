@@ -1,0 +1,173 @@
+﻿@page
+@model OrchidTradingManagement.Pages.Orchid.MySellOrchidModel
+@{
+}
+
+@{
+    String jsonString = HttpContext.Session.GetString("userId");
+    if (!string.IsNullOrEmpty(jsonString))
+    {
+        if (!jsonString.Equals("e7c115d3-a70a-4a16-b891-c45bd0425a00"))
+        {
+            <div>
+                <div>
+                <h1>
+                    My Sell Orchid Information
+                </h1>
+              </div>
+            </div>
+            var id = HttpContext.Session.GetString("userId");
+
+            if(Model.Orchids != null && Model.Orchids.Any())
+            {
+                @foreach(var orchid in Model.Orchids)
+                {
+                    <div onclick="toggleContent('@orchid.InforId')">
+                      <div class="container" id="body">
+                         <form method="post">
+                            <div class="mb-3" style="display:none">
+                              <label for="id" class="form-label">Infor Id:</label>
+                                 @orchid.InforId
+                              </div>
+                             <div class="mb-3">
+                                    <label for="title" class="form-label">Title:</label>
+                                    @orchid.Title
+                              </div>
+                              <div class="mb-3">
+                                    <label for="createDate" class="form-label">Create Date:</label>
+                                    @orchid.CreatedDate
+                              </div>
+                              <div class="mb-3">
+                                    <label for="status" class="form-label">Status:</label>
+                                    @orchid.Status
+                              </div>
+
+                                <div class="content" id="@orchid.InforId">
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description:</label>
+                                        @orchid.Description
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">Image:</label>
+                                        @orchid.Image
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="orchidName" class="form-label">Orchid Name:</label>
+                                        @orchid.OrchidName
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">Characteristic:</label>
+                                        @orchid.Characteristic
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">UnitPrice:</label>
+                                        @orchid.UnitPrice
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">Quantity:</label>
+                                        @orchid.Quantity
+                                    </div>
+                                </div>
+                                <div class="mb-3" style="display:none">
+                                    <label for="userId" class="form-label">UserID</label>
+                                    <input type="hidden" class="form-control" id="userId" asp-for="@orchid.UserId" />
+                                </div>
+                                <div class="mb-3" style="display:none">
+                                    <label for="orchidId" class="form-label">AnimalID</label>
+                                    <input type="hidden" class="form-control" id="animalId" asp-for="@orchid.OrchidId" />
+                                </div>
+                                <div class="mb-3 d-flex justify-content-between">
+                                    <a class="button" style="text-decoration:none" href="EditSellOrGivePost/@orchid.InforId">Modify</a>
+                                </div>
+
+                         </form>
+                            <hr style="height: 2px; margin: 10px 0; background-color: black;" />
+                      </div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div>
+                    <p>No Orchid Information Were Found!.</p>
+                </div>
+            }
+            <style>
+                .button {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    font-size: 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    color: #fff;
+                    background-color: white;
+                    border-radius: 5px;
+                    border: none;
+                    transition: all 0.5s;
+                }
+
+                    .button:hover {
+                        background-color: silver;
+                    }
+
+
+                .content {
+                    display: none;
+                }
+
+                #body {
+                    width: 80%;
+                    margin: auto;
+                    padding: 20px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    background-color: #f8f9fa;
+                }
+
+                    #body .form-label {
+                        font-weight: bold;
+                        color: #343a40;
+                    }
+
+                    #body .mb-3 {
+                        margin-bottom: 1rem !important;
+                    }
+
+                    #body a {
+                        color: #007bff;
+                        text-decoration: none;
+                    }
+
+                        #body a:hover {
+                            color: #0056b3;
+                            text-decoration: underline;
+                        }
+
+                    #body img {
+                        max-width: 100%;
+                        height: auto;
+                    }
+
+                    #body hr {
+                        border: none;
+                        border-top: 2px solid #000;
+                        margin: 10px 0;
+                    }
+
+            </style>
+
+            <script>
+                function toggleContent(id) {
+                    var content = document.getElementById(id);
+
+                    if (content.style.display == "none") {
+                        content.style.display = "block";
+
+                    } else {
+                        content.style.display = "none";
+                    }
+                }
+            </script>
+        }
+    }
+}

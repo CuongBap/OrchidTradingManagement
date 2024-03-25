@@ -50,7 +50,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                             Characteristic = orchidDomainModel.Characteristic,
                             UnitPrice = orchidDomainModel.UnitPrice,
                             Quantity = orchidDomainModel.Quantity,
-                            Status = orchidDomainModel.Status,
+
                         };
                     }
                 }
@@ -85,7 +85,6 @@ namespace OrchidTradingManagement.Pages.Orchid
                     Characteristic = EditOrchidRequest.Characteristic,
                     UnitPrice = EditOrchidRequest.UnitPrice,
                     Quantity = EditOrchidRequest.Quantity,
-                    Status = EditOrchidRequest.Status,
                 };
 
                 await listInformationRepository.UpdateAsync(listinforDomainModel);
