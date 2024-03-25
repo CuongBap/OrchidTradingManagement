@@ -44,7 +44,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                 {
                     OrderId = new Guid(),
                     OrderDate = DateTime.Now,
-                    Status = "pending",
+                    Status = "Approved",
                     Total = total,
                     BuyerId = Guid.Parse(HttpContext.Session.GetString("userId"))
                 });
