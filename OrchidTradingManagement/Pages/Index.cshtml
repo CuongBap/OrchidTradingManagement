@@ -29,6 +29,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <td>Images</td>
                         <td>Title</td>
                         <td>Description</td>
                         <td></td>
@@ -38,6 +39,7 @@
                     @foreach (var listInformation in Model.SearchResults)
                     {
                         <tr>
+                            <td><img src="@listInformation.Image" style="width:100px; height:100px" /></td>
                             <td>@listInformation.Title</td>
                             <td>@listInformation.Description</td>
 

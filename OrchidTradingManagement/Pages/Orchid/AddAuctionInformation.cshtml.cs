@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OrchidTradingRepositories.Models.ViewModels;
-using OrchidTradingRepositories.Repositories;
 using OrchidTradingRepositories.Services;
 
 namespace OrchidTradingManagement.Pages.Orchid
