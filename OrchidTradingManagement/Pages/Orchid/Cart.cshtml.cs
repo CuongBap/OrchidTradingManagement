@@ -58,6 +58,7 @@ namespace OrchidTradingManagement.Pages.Orchid
                 HttpContext.Session.Set("cart", new List<List<Cart>>());
                 carlist = new List<Cart>();
                 TempData["success"] = "Add to order";
+                return RedirectToPage("/Orchid/ListOrderInformation");
 
             }
             return Page();
