@@ -29,12 +29,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home </a>
                         </li>
-                        @if (role != null && role.Equals("user"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Orchid/Cart">Cart</a>
-                            </li>
-                        }
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false" id="navbardropdownpost">
@@ -60,6 +55,12 @@
                                 </li>
                             </ul>
                         </li>
+                        @if (role != null && role.Equals("user"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Orchid/Cart">Shopping Cart</a>
+                            </li>
+                        }
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false" id="navbardropdownpost">
